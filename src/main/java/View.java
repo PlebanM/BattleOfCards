@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Scanner;
 
 public class View {
@@ -17,6 +18,8 @@ public class View {
     }
 
     public void showGameMenu(){
+        Controller controller = new Controller();
+        controller.setGame();
 
     }
 
