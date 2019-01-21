@@ -6,6 +6,10 @@ public class Garbage {
 	private int junkValue;
 	private int weight;
 
+	public Garbage(){
+		System.out.println("Delete after check !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
+
 	public Garbage(String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
 		this.name = name;
 		this.smell = smell;
