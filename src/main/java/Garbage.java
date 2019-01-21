@@ -1,4 +1,5 @@
 public class Garbage {
+	private int id;
 	private String name;
 	private int smell;
 	private int design;
@@ -6,7 +7,8 @@ public class Garbage {
 	private int junkValue;
 	private int weight;
 
-	public Garbage(String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
+	public Garbage(int id, String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
+		this.id = id;
 		this.name = name;
 		this.smell = smell;
 		this.design = design;
@@ -14,6 +16,10 @@ public class Garbage {
 		this.junkValue = junkValue;
 		this.weight = weight;
 	}
+
+	public int getId() { return id; }
+
+	public void setId(int id) { this.id = id }
 
 	public String getName() {
 		return name;
