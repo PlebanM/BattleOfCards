@@ -2,18 +2,17 @@ import java.util.Scanner;
 
 public class View {
 
-    Scanner input;
+    private Scanner input;
 
     public View(){
         this.input = new Scanner(System.in);
     }
 
     public void showMainMenu(){
-        System.out.println("1. Start game");
-        System.out.println("2. Edit cards");
-        System.out.println("3. End game");
-
-
+        String menu = "1. Start game\n" +
+                "2. Edit cards\n" +
+                "3. End game\n";
+        System.out.println(menu);
     }
 
     public void showGameMenu(){
