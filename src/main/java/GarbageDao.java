@@ -14,8 +14,6 @@ public class GarbageDao {
         createTableIfDataFileIsEmpty();
     }
 
-    public void add(Garbage toAdd) {    };
-
 	public Garbage getByID(int index){
 		return new Garbage(1, "test", 0, 0, 0, 0, 0 );
 	}
@@ -27,14 +25,30 @@ public class GarbageDao {
 	public boolean removeByID(int index) { return false; }
 
 	public boolean updateByID(int id, Garbage item) {
+        selectById(id);
+        if
 		return false;
 	}
 
+    public void add(Garbage garbageToAdd) {
+        String addGarbageQuery =
+                "INSERT INTO GarbageData (NAME,SMELL,DESIGN,RECYCLINGTIME,JUNKVALUE,WEIGHT)\n" +
+                "VALUES (\n" +
+                "'"+ garbageToAdd.getName() +"',\n" +
+                "'"+ garbageToAdd.getSmell() +"',\n" +
+                "'"+ garbageToAdd.getDesign() +"',\n" +
+                "'"+ garbageToAdd.getRecyclingTime() +"',\n" +
+                "'"+ garbageToAdd.getJunkValue() +"',\n" +
+                "'"+ garbageToAdd.getWeight() +"'\n" +
+                ");";
+        statement.executeUpdate(addGarbageQuery);
+    };
+
 	private void selectById(int id) {
-	    String selectById =
+	    String selectByIdQuery =
                 "SELECT * FROM GarbageData\n" +
                 "WHRE ID = " + String.valueOf(id);
-	    resultSet = statement.executeQuery(selectById);
+	    resultSet = statement.executeQuery(selectByIdQuery);
     }
 
 	private void createTable() {
@@ -53,8 +67,8 @@ public class GarbageDao {
 
 	private void createTableIfDataFileIsEmpty() {
         resultSet = statement.executeQuery("SELECT * FROM GarbageData");
-        if(resultSet.next() == false) {
-
+        if(resultSet == null) {
+            createTable();
         }
     }
 }
