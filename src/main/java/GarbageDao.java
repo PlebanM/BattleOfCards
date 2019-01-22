@@ -22,12 +22,26 @@ public class GarbageDao {
 		return new ArrayList<Garbage>();
 	}
 
-	public boolean removeByID(int index) { return false; }
+	public void removeByID(int id) {
+        String removeGarbageQuery =
+                "DELETE FROM GARBAGEDATA\n" +
+                "WHERE ID = "+ String.valueOf(id) +";";
+        statement.executeUpdate(removeGarbageQuery);
+    }
 
-	public boolean updateByID(int id, Garbage item) {
-        selectById(id);
-        if
-		return false;
+	public void updateByID(int id, Garbage item) {
+        String updateGarbageQuery =
+            "UPDATE GarbageData\n" +
+            "SET\n" +
+            "    Name = '" + garbageToAdd.getName() +"',\n" +
+            "    SMELL = " + garbageToAdd.getSmell() + ",\n" +
+            "    DESIGN = " + garbageToAdd.getDesign() + ",\n" +
+            "    RECYCLINGTIME = " + garbageToAdd.getRecyclingTime() + ",\n" +
+            "    JUNKVALUE = " + garbageToAdd.getJunkValue() + ",\n" +
+            "    WEIGHT = " + garbageToAdd.getWeight() + "\n" +
+            "WHERE\n" +
+            "    ID = " + String.valueOf(id) + ";";
+        statement.executeUpdate(updateGarbageQuery);
 	}
 
     public void add(Garbage garbageToAdd) {
