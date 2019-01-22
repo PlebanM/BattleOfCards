@@ -1,14 +1,26 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardsCollection {
-	private List<Garbage> allCards;
+	private List<Garbage> allCards = new ArrayList<Garbage>();
 
-	public Garbage getTopCard() {
-		return new Garbage("adf", 1, 2, 3, 4);
+	public List<Garbage> getAllCards(){
+		return allCards;
 	}
 
-	public boolean addCardsToBottom(List<Garbage> garbage){
-		return false;
+	public Garbage getTopCard() {
+		return allCards.get(0);
+	}
+
+	public void removeTopCard(){
+		allCards.remove(0);
+
+	}
+
+	public void addCardsToBottom(List<Garbage> cardsToAdd){
+		for (Garbage card : cardsToAdd){
+			allCards.add(card);
+		}
 	}
 
 }
