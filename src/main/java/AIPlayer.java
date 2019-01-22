@@ -1,8 +1,7 @@
 public class AIPlayer extends Player{
 
-    public AIPlayer(String name){
-        super(name);
-        isAi = true;
+    public AIPlayer(String name, View view){
+        super(name, view);
     }
 
     @Override

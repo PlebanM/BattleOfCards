@@ -1,15 +1,17 @@
 public class UserPlayer extends Player {
 
-    private PlayerView playerView;
 
-    public UserPlayer(String name){
-        super(name);
-        isAi = false;
-        playerView = new PlayerView;
+    public UserPlayer(String name, View view){
+        super(name, view);
     }
 
     @Override
     public int chooseStatisticToCompare() {
-        playerView.getPositionOnCard();
+        return 0;
     }
+
+//    @Override
+//    public int chooseStatisticToCompare(View view) {
+//        view.getPositionOnCard();
+//    }
 }

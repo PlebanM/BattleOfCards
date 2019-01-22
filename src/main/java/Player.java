@@ -1,11 +1,15 @@
+import java.util.List;
+
 public abstract class Player {
 	private CardsCollection playerDeck;
 	private String playerName;
-	boolean isAi;
+	private View view;
 
-	public Player(String name){
+
+	public Player(String name, View view){
 		playerDeck = new CardsCollection();
 		this.playerName = name;
+		this.view = view;
 	}
 
 	public Garbage getTopCard(){
@@ -14,9 +18,8 @@ public abstract class Player {
 		return old;
 	}
 
-	public void addAllCard(CardsCollection cards) {
+	public void setAllCards(List<Garbage> cards) {
 		playerDeck.addCardsFromListToDeck(cards);
-
 	}
 
 

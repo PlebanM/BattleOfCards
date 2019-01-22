@@ -8,15 +8,15 @@ public class GarbageDao {
     private ResultSet resultSet;
 
     public GarbageDao() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        createTableIfDataFileIsEmpty();
+//        try {
+//            Class.forName("org.sqlite.JDBC");
+//            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
+//            connection.setAutoCommit(false);
+//            statement = connection.createStatement();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        createTableIfDataFileIsEmpty();
     }
 
 	public Garbage getByID(int id){
@@ -34,21 +34,21 @@ public class GarbageDao {
 		devList.add(new Garbage("First", 99, 99, 99, 99));
 		devList.add(new Garbage("Third", 99, 33, 33, 33));
 		devList.add(new Garbage("Fourth", 44, 44, 44, 44));
-//		devList.add(new Garbage("Sixth", 44, 44, 44, 44));
-//		return devList;
+		devList.add(new Garbage("Sixth", 44, 44, 44, 44));
+		return devList;
 
-        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
-        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
-        try {
-            while(resultSet.next()) {
-                garbageListFromDataBase.add(
-                        garbageByCurrentResultSet()
-                );
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return garbageListFromDataBase;
+//        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
+//        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
+//        try {
+//            while(resultSet.next()) {
+//                garbageListFromDataBase.add(
+//                        garbageByCurrentResultSet()
+//                );
+//            }
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        return garbageListFromDataBase;
 
 	}
 

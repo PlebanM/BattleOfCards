@@ -1,18 +1,46 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Service {
+public class ServiceGame {
 	private GarbageDao garbageDao = new GarbageDao();
 	private CardsCollection allCards = new CardsCollection();
-	private List<Player> players;
+	private View view;
 
+	public ServiceGame(View view){
+		this.view = view;
+	}
 
-	public Service(List<Player> players){
-		this.players = players;
+	public boolean loadGarbageFromDB() {
+		allCards.addCardsFromListToDeck(garbageDao.getAll());
+		return allCards.getSize() != 0;
+	}
+
+	public boolean dealCardsToPlayers(List<Player> players) {
+		int numberOfCards = allCards.getSize();
+		int numberOfPlayers = players.size();
+		if (numberOfPlayers >= numberOfCards){
+			return false;
+		}
+		allCards.shuffleGarbage();
+
+		int i = 0;
+		for (Player player : players) {
+			player.setAllCards(allCards.getAllCards().subList(i, i + (numberOfCards / numberOfPlayers)));
+			i += numberOfCards / numberOfPlayers;
+		}
+		return true;
 	}
 
 
-	public List<Integer> compareTwoGarbage(Positions choice, List<Garbage> items) {
+
+
+
+
+
+
+
+
+	public List<Integer> compareGarbage(Positions choice, List<Garbage> items) {
 		int max = 0;
 		List<Integer> winNumbers = new ArrayList<>();
 		for (int i = 0; i < items.size(); i++) {
@@ -49,30 +77,16 @@ public class Service {
 		return false;
 	}
 
-	public ArrayList<Garbage> loadGarbageFromDB() {
-		return new ArrayList<Garbage>();
-	}
+
 
 	public boolean updateGarbage(Garbage garbage, int index) {
 		return false;
 	}
 
 
-	public void dealCardsToPlayers(CardsCollection garbage, List<Player> players) {
-		int numberOfPlayers = players.size();
-		int numberOfCards = garbage.getSize();
-		int i = 0;
-		for (Player item : players) {
-			item.addAllCard(garbage.subList(i, i + (numberOfCards / numberOfPlayers)));
-			i += numberOfCards / numberOfPlayers;
-		}
-	}
 
 
-	public void setGame(List<Player> players) { //todo czy kazdy user ma minimum 1 karte
-		allCards.addCardsFromListToDeck(garbageDao.getAll());
-		allCards.shuffleGarbage();
-		this.dealCardsToPlayers(allCards, players);
-	}
+
+
 
 }
