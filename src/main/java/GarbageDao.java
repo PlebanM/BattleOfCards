@@ -11,11 +11,23 @@ public class GarbageDao {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
         connection.setAutoCommit(false);
+        statement = connection.createStatement();
         createTableIfDataFileIsEmpty();
     }
 
-	public Garbage getByID(int index){
-		return new Garbage(1, "test", 0, 0, 0, 0, 0 );
+	public Garbage getByID(int id){
+        String getByIdQuery =
+                "SELECT * FROM GARBAGEDATA\n" +
+                "WHERE ID = " + String.valueOf(id) + ";";
+        resultSet = statement.executeQuery(getByIdQuery);
+		return new Garbage(
+		        resultSet.getInt("ID"),
+                resultSet.getString("NAME"),
+                resultSet.getInt("SMELL"),
+                resultSet.getInt("RECYCLINGTIME"),
+                resultSet.getInt("JUNKVALUE"),
+                resultSet.getInt("WEIGHT"),
+                );
 	}
 
 	public List<Garbage> getAll(){
@@ -27,6 +39,7 @@ public class GarbageDao {
                 "DELETE FROM GARBAGEDATA\n" +
                 "WHERE ID = "+ String.valueOf(id) +";";
         statement.executeUpdate(removeGarbageQuery);
+        connection.commit();
     }
 
 	public void updateByID(int id, Garbage item) {
@@ -42,6 +55,7 @@ public class GarbageDao {
             "WHERE\n" +
             "    ID = " + String.valueOf(id) + ";";
         statement.executeUpdate(updateGarbageQuery);
+        connection.commit();
 	}
 
     public void add(Garbage garbageToAdd) {
@@ -56,6 +70,7 @@ public class GarbageDao {
                 "'"+ garbageToAdd.getWeight() +"'\n" +
                 ");";
         statement.executeUpdate(addGarbageQuery);
+        connection.commit();
     };
 
 	private void selectById(int id) {
@@ -77,6 +92,7 @@ public class GarbageDao {
                 "WEIGHT INT\n" +
                 ");";
         statement.executeUpdate(createTableSqlQuery);
+        connection.commit();
     }
 
 	private void createTableIfDataFileIsEmpty() {
