@@ -1,29 +1,16 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+public abstract class Player {
+	private CardsCollection playerDeck;
+	private String playerName;
+	boolean isAi;
 
-public class Player {
-	private List<Garbage> playerDeck = new ArrayList<>();
-
-
-	public Garbage getTopCard(){
-		return null;
+	public Player(){
+		playerDeck = new CardsCollection();
 	}
 
-	public void removeTopCard(){
-	}
-
-	public void addAllCard(List<Garbage> cards) {
-		playerDeck.addAll(cards);
-
-	}
-
-	public int getPlayerScore(){
-		return playerDeck.size();
-	}
-
-	public List<Garbage> getAllCards() {
+	public CardsCollection getPlayerDeck() {
 		return playerDeck;
 	}
+
+	public abstract int chooseStatisticToCompare();
 
 }
