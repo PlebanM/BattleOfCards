@@ -14,7 +14,7 @@ public class GarbageDao {
         createTableIfDataFileIsEmpty();
     }
 
-    public void add(Garbage toAdd) {  }
+    public void add(Garbage toAdd) {    };
 
 	public Garbage getByID(int index){
 		return new Garbage(1, "test", 0, 0, 0, 0, 0 );
@@ -29,6 +29,13 @@ public class GarbageDao {
 	public boolean updateByID(int id, Garbage item) {
 		return false;
 	}
+
+	private void selectById(int id) {
+	    String selectById =
+                "SELECT * FROM GarbageData\n" +
+                "WHRE ID = " + String.valueOf(id);
+	    resultSet = statement.executeQuery(selectById);
+    }
 
 	private void createTable() {
         String createTableSqlQuery =
