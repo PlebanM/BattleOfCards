@@ -55,7 +55,6 @@ public class GarbageDao {
             "SET\n" +
             "    Name = '" + garbageToAdd.getName() +"',\n" +
             "    SMELL = " + garbageToAdd.getSmell() + ",\n" +
-            "    DESIGN = " + garbageToAdd.getDesign() + ",\n" +
             "    RECYCLINGTIME = " + garbageToAdd.getRecyclingTime() + ",\n" +
             "    JUNKVALUE = " + garbageToAdd.getJunkValue() + ",\n" +
             "    WEIGHT = " + garbageToAdd.getWeight() + "\n" +
@@ -66,11 +65,10 @@ public class GarbageDao {
 
     public void add(Garbage garbageToAdd) {
         String addGarbageQuery =
-                "INSERT INTO GarbageData (NAME,SMELL,DESIGN,RECYCLINGTIME,JUNKVALUE,WEIGHT)\n" +
+                "INSERT INTO GarbageData (NAME,SMELL,RECYCLINGTIME,JUNKVALUE,WEIGHT)\n" +
                 "VALUES (\n" +
                 "'"+ garbageToAdd.getName() +"',\n" +
                 "'"+ garbageToAdd.getSmell() +"',\n" +
-                "'"+ garbageToAdd.getDesign() +"',\n" +
                 "'"+ garbageToAdd.getRecyclingTime() +"',\n" +
                 "'"+ garbageToAdd.getJunkValue() +"',\n" +
                 "'"+ garbageToAdd.getWeight() +"'\n" +
@@ -84,7 +82,6 @@ public class GarbageDao {
                     resultSet.getInt("ID"),
                     resultSet.getString("NAME"),
                     resultSet.getInt("SMELL"),
-                    resultSet.getInt("DESIGN"),
                     resultSet.getInt("RECYCLINGTIME"),
                     resultSet.getInt("JUNKVALUE"),
                     resultSet.getInt("WEIGHT")
@@ -92,7 +89,7 @@ public class GarbageDao {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return new Garbage(-1, "error", -1, -1, -1, -1, -1);
+        return new Garbage(-1, "error", -1, -1, -1, -1);
     }
 
 	private void createTable() {
@@ -101,7 +98,6 @@ public class GarbageDao {
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                 "NAME TEXT,\n" +
                 "SMELL INT,\n" +
-                "DESIGN INT,\n" +
                 "RECYCLINGTIME INT,\n" +
                 "JUNKVALUE INT,\n" +
                 "WEIGHT INT\n" +

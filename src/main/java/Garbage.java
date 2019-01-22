@@ -2,22 +2,24 @@ public class Garbage {
 	private int id;
 	private String name;
 	private int smell;
-	private int design;
 	private int recyclingTime;
 	private int junkValue;
 	private int weight;
 
-	public Garbage(String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
+	public Garbage(String s){
+		System.out.println("Delete after check !!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	}
+
+	public Garbage(String name, int smell, int recyclingTime, int junkValue, int weight) {
 		this.name = name;
 		this.smell = smell;
-		this.design = design;
 		this.recyclingTime = recyclingTime;
 		this.junkValue = junkValue;
 		this.weight = weight;
 	}
 
-	public Garbage(int id, String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
-		this(name, smell, design, recyclingTime, junkValue, weight);
+	public Garbage(int id, String name, int smell, int recyclingTime, int junkValue, int weight) {
+		this(name, smell, recyclingTime, junkValue, weight);
 		this.id = id;
 	}
 
@@ -39,14 +41,6 @@ public class Garbage {
 
 	public void setSmell(int smell) {
 		this.smell = smell;
-	}
-
-	public int getDesign() {
-		return design;
-	}
-
-	public void setDesign(int design) {
-		this.design = design;
 	}
 
 	public int getRecyclingTime() {
@@ -71,5 +65,16 @@ public class Garbage {
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	@Override
+	public String toString() {
+		return "Garbage{" +
+				"name='" + name + '\'' +
+				", smell=" + smell +
+				", recyclingTime=" + recyclingTime +
+				", junkValue=" + junkValue +
+				", weight=" + weight +
+				'}';
 	}
 }
