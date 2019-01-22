@@ -3,8 +3,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Service {
+	GarbageDao garbageDao;
+	Service service;
+	CardsCollection allCards;
+	List<Player> players;
 
 	public int compareTwoGarbage(Garbage item1, Garbage item2, Positions choice) {
+
 		if (choice == Positions.SMELL) {
 			if(item1.getSmell() > item2.getSmell()){
 				return 1;
@@ -43,7 +48,7 @@ public class Service {
 
 	public void moveGarbageFromPlayerTable(Table table, Player player) {
 		table.addCard(player.getTopCard());
-		player.removeTopCard();
+//		player.removeTopCard();
 	}
 
 	public void moveGarbageFromTableToPlayer(Table table, Player player) {
@@ -80,20 +85,24 @@ public class Service {
 	}
 
 
-	public void setGame(String... names) {
-		GarbageDao garbageDao = new GarbageDao();
-		Service service = new Service();
-		CardsCollection allCards = new CardsCollection();
+	public boolean setGame(String... names) { //todo czy kazdy user ma minimum 1 karte
+		garbageDao = new GarbageDao();
+		service = new Service();
+		allCards = new CardsCollection();
+		players = new ArrayList<>();
 		allCards.loadAllCards(garbageDao.getAll());
 		allCards.shuffleGarbage();
-		List<Player> players = new ArrayList<>();
 		for (String item : names) {
 			players.add(new Player(item));
 		}
 		service.setCardsToPlayers(allCards, players);
+
+
 		for (Player item : players) {
 			item.getAllCards().getAllCards().forEach(System.out::println);
 			System.out.println("------");
 		}
+
+		return true;
 	}
 }

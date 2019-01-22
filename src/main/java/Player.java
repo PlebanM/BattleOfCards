@@ -11,11 +11,14 @@ public class Player {
 	}
 
 	public Garbage getTopCard(){
-		return null;
+		Garbage old = playerDeck.getTopCard();
+		playerDeck.removeTopCard();
+		return old;
 	}
 
-	public void removeTopCard(){
-	}
+//	public void removeTopCard(){
+//		playerDeck.removeTopCard();
+//	}
 
 	public void addAllCard(List<Garbage> cards) {
 		playerDeck.loadAllCards(cards);
