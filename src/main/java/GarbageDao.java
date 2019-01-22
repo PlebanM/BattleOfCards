@@ -10,7 +10,7 @@ public class GarbageDao {
 		return new ArrayList<Garbage>();
 	}
 
-	public boolean removeByID(int id) { return false; }
+	public boolean removeByID(int index) { return false; }
 
 	public boolean updateByID(int id, Garbage item) {
 		return false;
