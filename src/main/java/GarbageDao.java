@@ -20,18 +20,18 @@ public class GarbageDao {
                 "SELECT * FROM GARBAGEDATA\n" +
                 "WHERE ID = " + String.valueOf(id) + ";";
         resultSet = statement.executeQuery(getByIdQuery);
-		return new Garbage(
-		        resultSet.getInt("ID"),
-                resultSet.getString("NAME"),
-                resultSet.getInt("SMELL"),
-                resultSet.getInt("RECYCLINGTIME"),
-                resultSet.getInt("JUNKVALUE"),
-                resultSet.getInt("WEIGHT"),
-                );
+		return garbageByCurrentResultSet();
 	}
 
 	public List<Garbage> getAll(){
-
+        resultSet = statement.executeQuery("SELECT * FROM GARBAGEDATA");
+        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
+        while(resultSet.next()) {
+            garbageListFromDataBase.add(
+                    garbageByCurrentResultSet()
+            );
+        }
+        return garbageListFromDataBase;
 	}
 
 	public void removeByID(int id) {
@@ -72,6 +72,17 @@ public class GarbageDao {
         statement.executeUpdate(addGarbageQuery);
         connection.commit();
     };
+
+    private Garbage garbageByCurrentResultSet() {
+        return new Garbage(
+                resultSet.getInt("ID"),
+                resultSet.getString("NAME"),
+                resultSet.getInt("SMELL"),
+                resultSet.getInt("RECYCLINGTIME"),
+                resultSet.getInt("JUNKVALUE"),
+                resultSet.getInt("WEIGHT"),
+                );
+    }
 
 	private void createTable() {
         String createTableSqlQuery =
