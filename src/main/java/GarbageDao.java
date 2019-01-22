@@ -8,10 +8,14 @@ public class GarbageDao {
     private ResultSet resultSet;
 
     public GarbageDao() {
-        Class.forName("org.sqlite.JDBC");
-        connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
-        connection.setAutoCommit(false);
-        statement = connection.createStatement();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         createTableIfDataFileIsEmpty();
     }
 
@@ -38,8 +42,7 @@ public class GarbageDao {
         String removeGarbageQuery =
                 "DELETE FROM GARBAGEDATA\n" +
                 "WHERE ID = "+ String.valueOf(id) +";";
-        statement.executeUpdate(removeGarbageQuery);
-        connection.commit();
+        executeUpdateAndCommit(removeGarbageQuery);
     }
 
 	public void updateByID(int id, Garbage item) {
@@ -54,8 +57,7 @@ public class GarbageDao {
             "    WEIGHT = " + garbageToAdd.getWeight() + "\n" +
             "WHERE\n" +
             "    ID = " + String.valueOf(id) + ";";
-        statement.executeUpdate(updateGarbageQuery);
-        connection.commit();
+        executeUpdateAndCommit(updateGarbageQuery);
 	}
 
     public void add(Garbage garbageToAdd) {
@@ -69,8 +71,7 @@ public class GarbageDao {
                 "'"+ garbageToAdd.getJunkValue() +"',\n" +
                 "'"+ garbageToAdd.getWeight() +"'\n" +
                 ");";
-        statement.executeUpdate(addGarbageQuery);
-        connection.commit();
+        executeUpdateAndCommit(addGarbageQuery);
     };
 
     private Garbage garbageByCurrentResultSet() {
@@ -80,7 +81,7 @@ public class GarbageDao {
                 resultSet.getInt("SMELL"),
                 resultSet.getInt("RECYCLINGTIME"),
                 resultSet.getInt("JUNKVALUE"),
-                resultSet.getInt("WEIGHT"),
+                resultSet.getInt("WEIGHT")
                 );
     }
 
@@ -95,14 +96,22 @@ public class GarbageDao {
                 "JUNKVALUE INT,\n" +
                 "WEIGHT INT\n" +
                 ");";
-        statement.executeUpdate(createTableSqlQuery);
-        connection.commit();
+        executeUpdateAndCommit(createTableSqlQuery);
     }
 
 	private void createTableIfDataFileIsEmpty() {
         resultSet = statement.executeQuery("SELECT * FROM GarbageData");
         if(resultSet == null) {
             createTable();
+        }
+    }
+
+    private void executeUpdateAndCommit(String sqlCommand) {
+        try {
+            statement.executeUpdate(sqlCommand);
+            connection.commit();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }
