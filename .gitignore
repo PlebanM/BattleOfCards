@@ -6,7 +6,11 @@
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
+<<<<<<< HEAD
 .idea/*
+=======
+.idea/**/shelf
+>>>>>>> 1b50f30c6ddb68128ec40874ce7b731cf8abd69b
 
 # Generated files
 .idea/**/contentModel.xml

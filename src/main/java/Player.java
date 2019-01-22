@@ -1,5 +1,3 @@
-import java.util.List;
-
 public abstract class Player {
 	private CardsCollection playerDeck;
 	private String playerName;
@@ -16,18 +14,11 @@ public abstract class Player {
 		return old;
 	}
 
-//	public void removeTopCard(){
-//		playerDeck.removeTopCard();
-//	}
-
 	public void addAllCard(CardsCollection cards) {
-		playerDeck.loadAllCards(cards);
+		playerDeck.addCardsFromListToDeck(cards);
 
 	}
 
-//	public int getPlayerScore(){
-//		return playerDeck.size();
-//	}
 
 	public CardsCollection getPlayerDeck() {
 		return playerDeck;
