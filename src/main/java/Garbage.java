@@ -7,14 +7,18 @@ public class Garbage {
 	private int junkValue;
 	private int weight;
 
-	public Garbage(int id, String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
-		this.id = id;
+	public Garbage(String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
 		this.name = name;
 		this.smell = smell;
 		this.design = design;
 		this.recyclingTime = recyclingTime;
 		this.junkValue = junkValue;
 		this.weight = weight;
+	}
+
+	public Garbage(int id, String name, int smell, int design, int recyclingTime, int junkValue, int weight) {
+		this(name, smell, design, recyclingTime, junkValue, weight);
+		this.id = id;
 	}
 
 	public int getId() { return id; }

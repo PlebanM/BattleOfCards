@@ -49,7 +49,7 @@ public class GarbageDao {
         executeUpdateAndCommit(removeGarbageQuery);
     }
 
-	public void updateByID(int id, Garbage item) {
+	public void updateByID(int id, Garbage garbageToAdd) {
         String updateGarbageQuery =
             "UPDATE GarbageData\n" +
             "SET\n" +
@@ -76,7 +76,7 @@ public class GarbageDao {
                 "'"+ garbageToAdd.getWeight() +"'\n" +
                 ");";
         executeUpdateAndCommit(addGarbageQuery);
-    };
+    }
 
     private Garbage garbageByCurrentResultSet() {
         try {
@@ -92,6 +92,7 @@ public class GarbageDao {
         } catch(Exception e) {
             e.printStackTrace();
         }
+        return new Garbage(-1, "error", -1, -1, -1, -1, -1);
     }
 
 	private void createTable() {
@@ -111,6 +112,7 @@ public class GarbageDao {
 	private void createTableIfDataFileIsEmpty() {
         setResultSetByQuery("SELECT * FROM GarbageData");
         if(resultSet == null) {
+            System.out.println("GarbageData table not found in database, creating GarbageData...");
             createTable();
         }
     }
