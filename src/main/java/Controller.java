@@ -5,10 +5,12 @@ import java.util.List;
 public class Controller {
 
 	private List<Player> players;
-	View mainView = new View();
-	Service newGame = new Service();
+	private View mainView = new View();
+	private Service newGame;
 
 	public void runGame() {
+
+
 
 		String[] playerNames = {"Stef", "Mef"};
 		for (String playerName : playerNames){

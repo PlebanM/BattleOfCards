@@ -1,8 +1,8 @@
 public class AIPlayer extends Player{
 
     public AIPlayer(String name){
-        super();
-        isAI = true;
+        super(name);
+        isAi = true;
     }
 
     @Override
