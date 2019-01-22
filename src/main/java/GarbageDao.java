@@ -23,17 +23,21 @@ public class GarbageDao {
         String getByIdQuery =
                 "SELECT * FROM GARBAGEDATA\n" +
                 "WHERE ID = " + String.valueOf(id) + ";";
-        resultSet = statement.executeQuery(getByIdQuery);
+        setResultSetByQuery(getByIdQuery);
 		return garbageByCurrentResultSet();
 	}
 
 	public List<Garbage> getAll(){
-        resultSet = statement.executeQuery("SELECT * FROM GARBAGEDATA");
+        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
         List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
-        while(resultSet.next()) {
-            garbageListFromDataBase.add(
-                    garbageByCurrentResultSet()
-            );
+        try {
+            while(resultSet.next()) {
+                garbageListFromDataBase.add(
+                        garbageByCurrentResultSet()
+                );
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return garbageListFromDataBase;
 	}
@@ -75,14 +79,19 @@ public class GarbageDao {
     };
 
     private Garbage garbageByCurrentResultSet() {
-        return new Garbage(
-                resultSet.getInt("ID"),
-                resultSet.getString("NAME"),
-                resultSet.getInt("SMELL"),
-                resultSet.getInt("RECYCLINGTIME"),
-                resultSet.getInt("JUNKVALUE"),
-                resultSet.getInt("WEIGHT")
-                );
+        try {
+            return new Garbage(
+                    resultSet.getInt("ID"),
+                    resultSet.getString("NAME"),
+                    resultSet.getInt("SMELL"),
+                    resultSet.getInt("DESIGN"),
+                    resultSet.getInt("RECYCLINGTIME"),
+                    resultSet.getInt("JUNKVALUE"),
+                    resultSet.getInt("WEIGHT")
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
 	private void createTable() {
@@ -100,7 +109,7 @@ public class GarbageDao {
     }
 
 	private void createTableIfDataFileIsEmpty() {
-        resultSet = statement.executeQuery("SELECT * FROM GarbageData");
+        setResultSetByQuery("SELECT * FROM GarbageData");
         if(resultSet == null) {
             createTable();
         }
@@ -110,6 +119,14 @@ public class GarbageDao {
         try {
             statement.executeUpdate(sqlCommand);
             connection.commit();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setResultSetByQuery(String query) {
+        try {
+            resultSet = statement.executeQuery(query);
         } catch(Exception e) {
             e.printStackTrace();
         }
