@@ -3,8 +3,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Player {
-	private List<Garbage> playerDeck = new ArrayList<>();
+	private CardsCollection playerDeck = new CardsCollection();
+	private String name;
 
+	public Player(String name) {
+		this.name = name;
+	}
 
 	public Garbage getTopCard(){
 		return null;
@@ -14,15 +18,15 @@ public class Player {
 	}
 
 	public void addAllCard(List<Garbage> cards) {
-		playerDeck.addAll(cards);
+		playerDeck.loadAllCards(cards);
 
 	}
 
-	public int getPlayerScore(){
-		return playerDeck.size();
-	}
+//	public int getPlayerScore(){
+//		return playerDeck.size();
+//	}
 
-	public List<Garbage> getAllCards() {
+	public CardsCollection getAllCards() {
 		return playerDeck;
 	}
 
