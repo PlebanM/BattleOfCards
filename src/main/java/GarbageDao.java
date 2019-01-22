@@ -31,7 +31,7 @@ public class GarbageDao {
 	}
 
 	public List<Garbage> getAll(){
-		return new ArrayList<Garbage>();
+
 	}
 
 	public void removeByID(int id) {
@@ -72,13 +72,6 @@ public class GarbageDao {
         statement.executeUpdate(addGarbageQuery);
         connection.commit();
     };
-
-	private void selectById(int id) {
-	    String selectByIdQuery =
-                "SELECT * FROM GarbageData\n" +
-                "WHRE ID = " + String.valueOf(id);
-	    resultSet = statement.executeQuery(selectByIdQuery);
-    }
 
 	private void createTable() {
         String createTableSqlQuery =
