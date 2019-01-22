@@ -51,17 +51,17 @@ public class Kata {
 			sum += i;
 		}
 
-		for (long i = 1; i <= n; i++) {
-			for (long j = i; j <= nn; j++) {
-				System.out.println(i + " : " + j + " : " + sum);
-				if (i * j == sum - i - j) {
-					out.add(new long[]{i, j});
-					out.add(new long[]{j, i});
-				}
-			}
-		}
+//		for (long i = 1; i <= n; i++) {
+//			for (long j = i; j <= nn; j++) {
+//				System.out.println(i + " : " + j + " : " + sum);
+//				if (i * j == sum - i - j) {
+//					out.add(new long[]{i, j});
+//					out.add(new long[]{j, i});
+//				}
+//			}
+//		}
 
-		for (int i = 1; i < sum / 2; i++) {
+		for (int i = 1; i <= n; i++) {
 			System.out.println(sum % i + " : " + (sum / i) * i + " : " + (sum - (sum / i) - i));
 			if (sum % i == 0 && (sum / i) * i == sum - (sum / i) - i) {
 				out.add(new long[]{i, sum / i});

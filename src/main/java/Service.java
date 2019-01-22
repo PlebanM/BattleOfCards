@@ -51,10 +51,7 @@ public class Service {
 		table.removeCards();
 	}
 
-	public List<Garbage> shuffleGarbage(List<Garbage> garbage) {
-		Collections.shuffle(garbage);
-		return garbage;
-	}
+
 
 	public void addAllGarbageToPlayer(Player player, List<Garbage> garbage) {
 		player.addAllCard(garbage);
@@ -72,9 +69,9 @@ public class Service {
 		return false;
 	}
 
-	public void setCardsToPlayers(List<Garbage> garbage, List<Player> players) {
+	public void setCardsToPlayers(CardsCollection garbage, List<Player> players) {
 		int numberOfPlayers = players.size();
-		int numberOfCards = garbage.size();
+		int numberOfCards = garbage.getSize();
 		int i = 0;
 		for (Player item : players) {
 			item.addAllCard(garbage.subList(i, i + (numberOfCards / numberOfPlayers)));
@@ -82,4 +79,21 @@ public class Service {
 		}
 	}
 
+
+	public void setGame(String... names) {
+		GarbageDao garbageDao = new GarbageDao();
+		Service service = new Service();
+		CardsCollection allCards = new CardsCollection();
+		allCards.loadAllCards(garbageDao.getAll());
+		allCards.shuffleGarbage();
+		List<Player> players = new ArrayList<>();
+		for (String item : names) {
+			players.add(new Player(item));
+		}
+		service.setCardsToPlayers(allCards, players);
+		for (Player item : players) {
+			item.getAllCards().getAllCards().forEach(System.out::println);
+			System.out.println("------");
+		}
+	}
 }
