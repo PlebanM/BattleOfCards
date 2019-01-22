@@ -1,13 +1,13 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class Player {
-	private CardsCollection playerDeck = new CardsCollection();
-	private String name;
+public abstract class Player {
+	private CardsCollection playerDeck;
+	private String playerName;
+	boolean isAi;
 
-	public Player(String name) {
-		this.name = name;
+	public Player(String name){
+		playerDeck = new CardsCollection();
+		this.playerName = name;
 	}
 
 	public Garbage getTopCard(){
@@ -20,7 +20,7 @@ public class Player {
 //		playerDeck.removeTopCard();
 //	}
 
-	public void addAllCard(List<Garbage> cards) {
+	public void addAllCard(CardsCollection cards) {
 		playerDeck.loadAllCards(cards);
 
 	}
@@ -29,8 +29,10 @@ public class Player {
 //		return playerDeck.size();
 //	}
 
-	public CardsCollection getAllCards() {
+	public CardsCollection getPlayerDeck() {
 		return playerDeck;
 	}
+
+	public abstract int chooseStatisticToCompare();
 
 }

@@ -3,10 +3,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Service {
-	GarbageDao garbageDao;
-	Service service;
-	CardsCollection allCards;
-	List<Player> players;
+	private GarbageDao garbageDao;
+//	private Service service;
+	private CardsCollection allCards;
+	private List<Player> players;
 
 	public int compareTwoGarbage(Garbage item1, Garbage item2, Positions choice) {
 
@@ -16,7 +16,7 @@ public class Service {
 			} else if (item1.getSmell() < item2.getSmell()) {
 				return -1;
 			} else {
-				return 1;
+				return 0;
 			}
 		} else if (choice == Positions.JUNKVALUE) {
 			if(item1.getJunkValue() > item2.getJunkValue()){
@@ -24,7 +24,7 @@ public class Service {
 			} else if (item1.getJunkValue() < item2.getJunkValue()) {
 				return -1;
 			} else {
-				return 1;
+				return 0;
 			}
 		} else if (choice == Positions.RECYCLINGTIME) {
 			if(item1.getRecyclingTime() > item2.getRecyclingTime()){
@@ -32,7 +32,7 @@ public class Service {
 			} else if (item1.getRecyclingTime() < item2.getRecyclingTime()) {
 				return -1;
 			} else {
-				return 1;
+				return 0;
 			}
 		} else if (choice == Positions.WEIGHT) {
 			if(item1.getWeight() > item2.getWeight()){
@@ -40,18 +40,18 @@ public class Service {
 			} else if (item1.getWeight() < item2.getWeight()) {
 				return -1;
 			} else {
-				return 1;
+				return 0;
 			}
 		}
-		return 666;
+		return 0;
 	}
 
-	public void moveGarbageFromPlayerTable(Table table, Player player) {
+	public void moveGarbageFromPlayerTable(CardsCollection table, Player player) {
 		table.addCard(player.getTopCard());
 //		player.removeTopCard();
 	}
 
-	public void moveGarbageFromTableToPlayer(Table table, Player player) {
+	public void moveGarbageFromTableToPlayer(CardsCollection table, Player player) {
 		player.addAllCard(table.getAllCards());
 		table.removeCards();
 	}
@@ -87,7 +87,7 @@ public class Service {
 
 	public boolean setGame(String... names) { //todo czy kazdy user ma minimum 1 karte
 		garbageDao = new GarbageDao();
-		service = new Service();
+//		service = new Service();
 		allCards = new CardsCollection();
 		players = new ArrayList<>();
 		allCards.loadAllCards(garbageDao.getAll());
@@ -95,7 +95,7 @@ public class Service {
 		for (String item : names) {
 			players.add(new Player(item));
 		}
-		service.setCardsToPlayers(allCards, players);
+		this.setCardsToPlayers(allCards, players);
 
 
 		for (Player item : players) {
