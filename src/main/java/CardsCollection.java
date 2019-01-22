@@ -5,8 +5,10 @@ import java.util.List;
 public class CardsCollection {
 	private List<Garbage> allCards = new ArrayList<>();
 
-	public void loadAllCards(List<Garbage> items) {
-		allCards.addAll(items);
+	public void addCardsFromListToDeck(List<Garbage> items) {
+		for (Garbage card : items){
+			this.addCardToBottom(card);
+		}
 	}
 
 	public void shuffleGarbage() {
@@ -17,25 +19,23 @@ public class CardsCollection {
 		return allCards;
 	}
 
-
 	public Garbage getTopCard() {
 		return allCards.get(0);
+	}
+
+	public void removeCard(Garbage card){
+		allCards.remove(card);
 	}
 
 	public void removeTopCard(){
 		allCards.remove(0);
 	}
 
-	public void addCardsToBottom(Garbage item){
+	public void addCardToBottom(Garbage item){
 		allCards.add(item);
 	}
 
 	public int getSize() {
 		return allCards.size();
 	}
-
-	public List<Garbage> subList(int start, int end) {
-		return allCards.subList(start, end);
-	}
-
 }

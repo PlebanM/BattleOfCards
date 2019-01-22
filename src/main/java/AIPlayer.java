@@ -1,6 +1,6 @@
 public class AIPlayer extends Player{
 
-    public AIPlayer(){
+    public AIPlayer(String name){
         super();
         isAI = true;
     }

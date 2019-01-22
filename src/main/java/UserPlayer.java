@@ -1,9 +1,9 @@
 public class UserPlayer extends Player {
 
-    PlayerView playerView;
+    private PlayerView playerView;
 
-    public UserPlayer(){
-        super();
+    public UserPlayer(String name){
+        super(name);
         isAi = false;
         playerView = new PlayerView;
     }
