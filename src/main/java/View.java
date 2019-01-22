@@ -27,6 +27,8 @@ public class View {
 
 
     public void showGameMenu(){
+        Controller controller = new Controller();
+        controller.runGame();
 
     }
 
