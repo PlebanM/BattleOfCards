@@ -4,22 +4,52 @@ public abstract class Player {
 	private CardsCollection playerDeck;
 	private String playerName;
 	private View view;
+	private boolean playerTurn;
 
 
 	public Player(String name, View view){
-		playerDeck = new CardsCollection();
+		this.playerDeck = new CardsCollection();
 		this.playerName = name;
 		this.view = view;
 	}
 
-	public Garbage getTopCard(){
+
+	public Garbage getAndRemoveTopCard(){
 		Garbage old = playerDeck.getTopCard();
 		playerDeck.removeTopCard();
 		return old;
 	}
 
+
 	public void setAllCards(List<Garbage> cards) {
 		playerDeck.addCardsFromListToDeck(cards);
+	}
+
+
+	public boolean isActive(){
+		return playerDeck.getSize() != 0;
+	}
+
+
+	public boolean isPlayerTurn() {
+		return playerTurn;
+	}
+
+
+	public void setPlayerTurn(boolean state) {
+		this.playerTurn = state;
+	}
+
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+
+	public void addCardsToBottom(CardsCollection cardsCollection) {
+		for (Garbage garbage : cardsCollection.getAllCards()) {
+			playerDeck.addCardToBottom(garbage);
+		}
 	}
 
 
@@ -27,6 +57,12 @@ public abstract class Player {
 		return playerDeck;
 	}
 
-	public abstract int chooseStatisticToCompare();
 
+	public void showLooseMessage() {
+		view.showLooseMessage(this.playerName);
+	}
+
+
+	public abstract Positions chooseStatisticToCompare();
 }
+

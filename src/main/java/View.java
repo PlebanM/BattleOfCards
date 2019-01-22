@@ -79,8 +79,8 @@ public class View {
 
 
 	public List<List<String>> getPlayers() {
-        List<String> AIPlayers = new ArrayList<>(Collections.singletonList("AIPlayer"));
-        List<String> userPlayers = new ArrayList<>(Arrays.asList("les", "ples"));
+        List<String> AIPlayers = new ArrayList<>(Collections.singletonList("AIP"));
+        List<String> userPlayers = new ArrayList<>(Arrays.asList("les", "ple"));
         List<List<String>> out = new ArrayList<>();
         out.add(userPlayers);
         out.add(AIPlayers);
@@ -89,5 +89,9 @@ public class View {
         return out;
     }
 
+
+	public void showLooseMessage(String name) {
+		//todo print loose message, name is looser name
+	}
 
 }

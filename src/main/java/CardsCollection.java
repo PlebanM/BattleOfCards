@@ -11,31 +11,43 @@ public class CardsCollection {
 		}
 	}
 
+
 	public void shuffleGarbage() {
 		Collections.shuffle(allCards);
 	}
+
 
 	public List<Garbage> getAllCards(){
 		return allCards;
 	}
 
+
 	public Garbage getTopCard() {
-		return allCards.get(0);
+		return allCards.get(allCards.size() - 1);
 	}
 
-	public void removeCard(Garbage card){
-		allCards.remove(card);
+
+	public void removeAllCards() {
+		allCards.clear();
 	}
+
 
 	public void removeTopCard(){
 		allCards.remove(0);
 	}
 
+
 	public void addCardToBottom(Garbage item){
-		allCards.add(item);
+		allCards.add(0, item);
 	}
+
 
 	public int getSize() {
 		return allCards.size();
+	}
+
+
+	public Garbage getCartByID(int id) {
+		return allCards.get(id);
 	}
 }

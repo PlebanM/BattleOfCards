@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ServicePlayer {
 	private List<Player> players = new ArrayList<>();
@@ -24,6 +25,9 @@ public class ServicePlayer {
 				players.add(new AIPlayer(name, view));
 			}
 		}
+//		Random random = new Random(); //todo comment only for tests
+//		players.get(random.nextInt(players.size())).setPlayerTurn();
+		players.get(1).setPlayerTurn(true);
 		return players.size() != 0;
 	}
 
@@ -33,5 +37,13 @@ public class ServicePlayer {
 	}
 
 
-
+	public boolean isWinner() {
+		int numberOfActivePlayers = 0;
+		for (Player player : players) {
+			if(player.isActive()){
+				numberOfActivePlayers++;
+			}
+		}
+		return numberOfActivePlayers == 1;
+	}
 }

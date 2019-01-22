@@ -6,12 +6,8 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public int chooseStatisticToCompare() {
-        return 0;
+    public Positions chooseStatisticToCompare() {
+        //todo make code , show him top card
+        return Positions.RECYCLINGTIME;
     }
-
-//    @Override
-//    public int chooseStatisticToCompare(View view) {
-//        view.getPositionOnCard();
-//    }
 }

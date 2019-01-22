@@ -20,35 +20,23 @@ public class Controller {
 		boolean isSetPlayers = servicePlayer.setPlayers();
 		boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
 
-		
+		//todo this all part is only for tests
+		for (Player player : servicePlayer.getPlayers()) {
+			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
+		}
+		serviceGame.nextTour(servicePlayer.getPlayers());
+		System.out.println("----------------------");
+		for (Player player : servicePlayer.getPlayers()) {
+			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
 
+		}
+		serviceGame.nextTour(servicePlayer.getPlayers());
+		System.out.println("----------------------");
+		for (Player player : servicePlayer.getPlayers()) {
+			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
+		}
+
+		boolean isWinner = servicePlayer.isWinner();
+		System.out.println(isWinner);
 	}
-
-//		String[] AIPlayersNames = {"AiPlayer"};
-//
-//
-//
-//
-//
-//		for (String playerName : playerNames) {
-//			userPlayers.add(new UserPlayer(playerName, view));
-//		}
-//		userPlayers.add(new AIPlayer("AiPlayer", view));
-//
-//		boolean isSetGame = service.setGame(userPlayers);
-//
-//
-//
-//
-//		ServiceGame test = new ServiceGame();
-//		GarbageDao testDAO = new GarbageDao();
-//		List<Garbage> garbage = new ArrayList<>(testDAO.getAll());
-//		List<Integer> win = test.compareGarbage(Positions.SMELL, garbage);
-//		System.out.println(win);
-//
-//	}
-//
-//	public void handleCrud() {
-//
-//	}
 }

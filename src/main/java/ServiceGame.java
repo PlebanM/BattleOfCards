@@ -4,16 +4,20 @@ import java.util.List;
 public class ServiceGame {
 	private GarbageDao garbageDao = new GarbageDao();
 	private CardsCollection allCards = new CardsCollection();
+	private CardsCollection table = new CardsCollection();
 	private View view;
+
 
 	public ServiceGame(View view){
 		this.view = view;
 	}
 
+
 	public boolean loadGarbageFromDB() {
 		allCards.addCardsFromListToDeck(garbageDao.getAll());
 		return allCards.getSize() != 0;
 	}
+
 
 	public boolean dealCardsToPlayers(List<Player> players) {
 		int numberOfCards = allCards.getSize();
@@ -21,8 +25,7 @@ public class ServiceGame {
 		if (numberOfPlayers >= numberOfCards){
 			return false;
 		}
-		allCards.shuffleGarbage();
-
+//		allCards.shuffleGarbage();  //todo comment only for tests
 		int i = 0;
 		for (Player player : players) {
 			player.setAllCards(allCards.getAllCards().subList(i, i + (numberOfCards / numberOfPlayers)));
@@ -32,42 +35,55 @@ public class ServiceGame {
 	}
 
 
+	public void nextTour(List<Player> players) {
+		Positions choice = this.getChoice(players);
+		for (Player player : players) {
+			if (player.isActive()) {
+				table.addCardToBottom(player.getAndRemoveTopCard());
+			}
+		}
+		List<Integer> winners = this.compareGarbage(choice, table, players);
+		if (winners.size() == 1) {
+			players.get(winners.get(0)).addCardsToBottom(table);
+			players.get(winners.get(0)).setPlayerTurn(true);
+			table.removeAllCards();
+		}
+		for (Player player : players) {
+			if (!player.isActive()) {
+				player.showLooseMessage();
+			}
+		}
+	}
 
 
+	private Positions getChoice(List<Player> players) {
+		for (Player player : players) {
+			if (player.isActive() && player.isPlayerTurn()) {
+				player.setPlayerTurn(false);
+				return player.chooseStatisticToCompare();
+			}
+		}
+		return Positions.ERROR;
+	}
 
 
-
-
-
-
-	public List<Integer> compareGarbage(Positions choice, List<Garbage> items) {
+	private List<Integer> compareGarbage(Positions choice, CardsCollection table, List<Player> players) {
 		int max = 0;
 		List<Integer> winNumbers = new ArrayList<>();
-		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).getByChoice(choice) > max) {
-				max = items.get(i).getSmell();
+		for (int i = 0; i < players.size(); i++) {
+			if (table.getCartByID(i).getByChoice(choice) > max) {
+				max = table.getCartByID(i).getByChoice(choice);
 
 			}
 		}
-		for (int i = 0; i < items.size(); i++) {
-			if (items.get(i).getByChoice(choice) == max) {
-				winNumbers.add(i + 1);
+		for (int i = 0; i < players.size(); i++) {
+			if (table.getCartByID(i).getByChoice(choice) == max) {
+				winNumbers.add(i);
 			}
 		}
-    		return winNumbers;
+		return winNumbers;
 	}
 
-	public void moveGarbageFromPlayerToTable(CardsCollection table, Player player) {
-		table.addCardToBottom(player.getTopCard());
-
-	}
-
-	public void moveGarbageFromTableToPlayer(CardsCollection table, Player player) {
-		for (Garbage card : table.getAllCards()){
-			player.getPlayerDeck().addCardToBottom(card);
-			table.removeCard(card);
-		}
-	}
 
 
 
@@ -82,11 +98,4 @@ public class ServiceGame {
 	public boolean updateGarbage(Garbage garbage, int index) {
 		return false;
 	}
-
-
-
-
-
-
-
 }
