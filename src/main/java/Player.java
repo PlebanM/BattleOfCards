@@ -20,10 +20,10 @@ public abstract class Player {
 //		playerDeck.removeTopCard();
 //	}
 
-	public void addAllCard(CardsCollection cards) {
-		playerDeck.loadAllCards(cards);
-
-	}
+//	public void addAllCard(CardsCollection cards) {
+//		playerDeck.loadAllCards(cards);
+//
+//	}
 
 //	public int getPlayerScore(){
 //		return playerDeck.size();
