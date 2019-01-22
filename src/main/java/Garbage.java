@@ -1,4 +1,6 @@
+
 public class Garbage {
+	private int id;
 	private String name;
 	private int smell;
 	private int recyclingTime;
@@ -17,8 +19,31 @@ public class Garbage {
 		this.weight = weight;
 	}
 
+	public Garbage(int id, String name, int smell, int recyclingTime, int junkValue, int weight) {
+		this(name, smell, recyclingTime, junkValue, weight);
+		this.id = id;
+	}
+
+	public int getId() { return id; }
+
+	public void setId(int id) { this.id = id; }
+
 	public String getName() {
 		return name;
+	}
+
+
+	public int getByChoice(Positions choice) {
+		if (choice == Positions.SMELL) {
+			return this.smell;
+		} else if (choice == Positions.WEIGHT) {
+			return this.weight;
+		} else if (choice == Positions.JUNKVALUE) {
+			return this.junkValue;
+		} else 	if (choice == Positions.RECYCLINGTIME) {
+			return this.recyclingTime;
+		}
+		return -1;
 	}
 
 	public void setName(String name) {

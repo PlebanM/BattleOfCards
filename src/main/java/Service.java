@@ -6,46 +6,27 @@ public class Service {
 	private CardsCollection allCards = new CardsCollection();
 	private List<Player> players;
 
+
 	public Service(List<Player> players){
 		this.players = players;
 	}
 
-	public int compareTwoGarbage(Garbage item1, Garbage item2, Positions choice) {
 
-		if (choice == Positions.SMELL) {
-			if(item1.getSmell() > item2.getSmell()){
-				return 1;
-			} else if (item1.getSmell() < item2.getSmell()) {
-				return -1;
-			} else {
-				return 0;
-			}
-		} else if (choice == Positions.JUNKVALUE) {
-			if(item1.getJunkValue() > item2.getJunkValue()){
-				return 1;
-			} else if (item1.getJunkValue() < item2.getJunkValue()) {
-				return -1;
-			} else {
-				return 0;
-			}
-		} else if (choice == Positions.RECYCLINGTIME) {
-			if(item1.getRecyclingTime() > item2.getRecyclingTime()){
-				return 1;
-			} else if (item1.getRecyclingTime() < item2.getRecyclingTime()) {
-				return -1;
-			} else {
-				return 0;
-			}
-		} else if (choice == Positions.WEIGHT) {
-			if(item1.getWeight() > item2.getWeight()){
-				return 1;
-			} else if (item1.getWeight() < item2.getWeight()) {
-				return -1;
-			} else {
-				return 0;
+	public List<Integer> compareTwoGarbage(Positions choice, List<Garbage> items) {
+		int max = 0;
+		List<Integer> winNumbers = new ArrayList<>();
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).getByChoice(choice) > max) {
+				max = items.get(i).getSmell();
+
 			}
 		}
-		return 0;
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).getByChoice(choice) == max) {
+				winNumbers.add(i + 1);
+			}
+		}
+    		return winNumbers;
 	}
 
 	public void moveGarbageFromPlayerToTable(CardsCollection table, Player player) {
@@ -60,6 +41,10 @@ public class Service {
 		}
 	}
 
+
+
+
+
 	public boolean saveGarbage(Player player) {
 		return false;
 	}
@@ -71,6 +56,7 @@ public class Service {
 	public boolean updateGarbage(Garbage garbage, int index) {
 		return false;
 	}
+
 
 	public void dealCardsToPlayers(CardsCollection garbage, List<Player> players) {
 		int numberOfPlayers = players.size();
@@ -88,4 +74,5 @@ public class Service {
 		allCards.shuffleGarbage();
 		this.dealCardsToPlayers(allCards, players);
 	}
+
 }

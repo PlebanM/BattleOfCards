@@ -19,6 +19,7 @@ public abstract class Player {
 
 	}
 
+
 	public CardsCollection getPlayerDeck() {
 		return playerDeck;
 	}
