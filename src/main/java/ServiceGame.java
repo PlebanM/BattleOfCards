@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceGame {
+
 	private GarbageDao garbageDao = new GarbageDao();
 	private CardsCollection allCards = new CardsCollection();
 	private CardsCollection table = new CardsCollection();
@@ -10,6 +11,9 @@ public class ServiceGame {
 
 	public ServiceGame(View view){
 		this.view = view;
+	}
+	public GarbageDao getGarbageDao() {
+		return garbageDao;
 	}
 
 

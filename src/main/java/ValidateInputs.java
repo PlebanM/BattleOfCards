@@ -23,7 +23,7 @@ public class ValidateInputs {
     public boolean validationInputInteger(int firstOption, int lastOption, String input){
 
         if (this.isNumeric(input)) {
-            if (this.checkRange(1, 3, input)) {
+            if (this.checkRange(firstOption, lastOption, input)) {
                 return true;
             } else {
                 return false;
