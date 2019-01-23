@@ -1,18 +1,38 @@
 import java.util.List;
 
-public class Player {
-    private List<Garbage> playerDeck;
-    private int playerScore;
+public abstract class Player {
+	private CardsCollection playerDeck;
+	private String playerName;
+	boolean isAi;
 
-    public Garbage getTopCard(){
-        return null;
-    }
+	public Player(String name){
+		playerDeck = new CardsCollection();
+		this.playerName = name;
+	}
 
-    public void removeTopCard(){
+	public Garbage getTopCard(){
+		Garbage old = playerDeck.getTopCard();
+		playerDeck.removeTopCard();
+		return old;
+	}
 
-    }
+//	public void removeTopCard(){
+//		playerDeck.removeTopCard();
+//	}
 
-    public static void main(String[] args) {
-        System.out.println("yo");
-    }
+//	public void addAllCard(CardsCollection cards) {
+//		playerDeck.loadAllCards(cards);
+//
+//	}
+
+//	public int getPlayerScore(){
+//		return playerDeck.size();
+//	}
+
+	public CardsCollection getPlayerDeck() {
+		return playerDeck;
+	}
+
+	public abstract int chooseStatisticToCompare();
+
 }

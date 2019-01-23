@@ -18,7 +18,7 @@ public class ValidateInputs {
         }
 
     }
-
+ 
 
     public boolean validationInputInteger(int firstOption, int lastOption, String input){
 
