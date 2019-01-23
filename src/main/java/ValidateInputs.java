@@ -1,13 +1,50 @@
+import java.util.Scanner;
+
 public class ValidateInputs {
 
-    public boolean isNumeric(String str)
-    {
-        return str.matches("\\d+");
+
+    Scanner input;
+
+
+    public ValidateInputs(){
+        this.input = new Scanner(System.in);
     }
 
 
+    public boolean isNumeric(String str)
+    {
 
-    public boolean checkRange(int firstOption, int lastOption, String input ) {
+        return str.matches("\\d+");
+    }
+
+    public int chooseNumber(String question){
+        String str;
+        do {
+            System.out.println(question);
+            str = input.next();
+
+        }while(!str.matches("\\d+"));
+
+        System.out.println(str);
+        return Integer.parseInt(str);
+    }
+
+
+    public int chooseNumberGreaterThenZero(String question){
+
+        String str;
+        do {
+            System.out.println(question);
+            str = input.next();
+
+        }while(!(str.matches("\\d+") && Integer.parseInt(str) > 0));
+
+
+        return Integer.parseInt(str);
+    }
+
+
+    private boolean checkRange(int firstOption, int lastOption, String input ) {
         int optionInt = Integer.parseInt(input);
         if ((optionInt >= firstOption && optionInt <= lastOption) ) {
 
@@ -23,13 +60,13 @@ public class ValidateInputs {
     public boolean validationInputInteger(int firstOption, int lastOption, String input){
 
         if (this.isNumeric(input)) {
-            if (this.checkRange(1, 3, input)) {
+            if (this.checkRange(firstOption, lastOption, input)) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            System.out.println("Its not a number");
+            System.out.println("It's not a number");
             return false;
         }
 

@@ -13,7 +13,9 @@ public class Controller {
 
 
 	public void runGame() {
-//		view.showMainMenu();
+
+		view.showMainMenu();
+		view.startGame();
 
 		//todo 							"1. Start game\n"
 		boolean isLoadGarbage = serviceGame.loadGarbageFromDB();

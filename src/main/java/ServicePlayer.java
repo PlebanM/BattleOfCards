@@ -14,7 +14,7 @@ public class ServicePlayer {
 	public boolean setPlayers() {
 		int userPlayersIndex = 0;
 		int AiUserPlayersIndex = 1;
-		view.showAddPlayersMenu();
+//		view.showAddPlayersMenu();
 		List<List<String>> allPlayers =  view.getPlayers();
 		if (allPlayers.get(userPlayersIndex).size() != 0) {
 			for (String name : allPlayers.get(userPlayersIndex)) {
