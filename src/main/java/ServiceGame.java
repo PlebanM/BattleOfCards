@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceGame {
-	private GarbageDao garbageDao = new GarbageDao();
+	private GarbageDao garbageDao = GarbageDao.getInstance();
 	private CardsCollection allCards = new CardsCollection();
 	private CardsCollection table = new CardsCollection();
 	private View view;
