@@ -21,22 +21,22 @@ public class Controller {
 		boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
 
 		//todo this all part is only for tests
-		for (Player player : servicePlayer.getPlayers()) {
-			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
-		}
-		serviceGame.nextTour(servicePlayer.getPlayers());
+		do {
+
+			testShow();
+
+			serviceGame.nextTour(servicePlayer.getPlayers());
+
+			testShow();
+
+
+		} while (!servicePlayer.isWinner());
+	}
+
+	private void testShow() {
 		System.out.println("----------------------");
 		for (Player player : servicePlayer.getPlayers()) {
 			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
-
 		}
-		serviceGame.nextTour(servicePlayer.getPlayers());
-		System.out.println("----------------------");
-		for (Player player : servicePlayer.getPlayers()) {
-			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
-		}
-
-		boolean isWinner = servicePlayer.isWinner();
-		System.out.println(isWinner);
 	}
 }

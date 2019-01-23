@@ -17,7 +17,12 @@ public class ServicePlayer {
 		List<List<String>> allPlayers =  view.getPlayers();
 		if (allPlayers.get(userPlayersIndex).size() != 0) {
 			for (String name : allPlayers.get(userPlayersIndex)) {
-				players.add(new UserPlayer(name, view));
+				players.add(new Player(name, view) {
+					@Override
+					public Positions chooseStatisticToCompare() {
+						return Positions.WEIGHT;
+					}
+				});
 			}
 		}
 		if (allPlayers.get(AiUserPlayersIndex).size() != 0) {
@@ -25,9 +30,8 @@ public class ServicePlayer {
 				players.add(new AIPlayer(name, view));
 			}
 		}
-//		Random random = new Random(); //todo comment only for tests
-//		players.get(random.nextInt(players.size())).setPlayerTurn();
-		players.get(1).setPlayerTurn(true);
+		Random random = new Random();
+		players.get(random.nextInt(players.size())).setPlayerTurn(true);
 		return players.size() != 0;
 	}
 

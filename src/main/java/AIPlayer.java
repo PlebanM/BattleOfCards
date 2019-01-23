@@ -7,21 +7,20 @@ public class AIPlayer extends Player{
     @Override
     public Positions chooseStatisticToCompare() {
         // todo only choice to compare
-        // Garbage topCard = getPlayerDeck().getTopCard();
-//        int statisticNumber = 1;
-//        int statisticToCompare = topCard.getSmell();
-//        if (topCard.getRecyclingTime() > statisticToCompare){
-//            statisticNumber = 2;
-//            statisticToCompare = topCard.getRecyclingTime();
-//        }
-//        if (topCard.getJunkValue() > statisticToCompare){
-//            statisticNumber = 3;
-//            statisticToCompare = topCard.getJunkValue();
-//        }
-//        if (topCard.getWeight() > statisticToCompare){
-//            statisticNumber = 4;
-//            statisticToCompare = topCard.getWeight();
-//        }
-        return Positions.RECYCLINGTIME;
+        Garbage topCard = getPlayerDeck().getTopCard();
+        Positions choice = Positions.SMELL;
+        int statisticToCompare = topCard.getSmell();
+        if (topCard.getRecyclingTime() > statisticToCompare){
+            choice = Positions.RECYCLINGTIME;
+            statisticToCompare = topCard.getRecyclingTime();
+        }
+        if (topCard.getJunkValue() > statisticToCompare){
+            choice = Positions.JUNKVALUE;
+            statisticToCompare = topCard.getJunkValue();
+        }
+        if (topCard.getWeight() > statisticToCompare){
+            choice = Positions.WEIGHT;
+        }
+        return choice;
     }
 }

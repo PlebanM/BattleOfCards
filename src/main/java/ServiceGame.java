@@ -25,7 +25,7 @@ public class ServiceGame {
 		if (numberOfPlayers >= numberOfCards){
 			return false;
 		}
-//		allCards.shuffleGarbage();  //todo comment only for tests
+		allCards.shuffleGarbage();
 		int i = 0;
 		for (Player player : players) {
 			player.setAllCards(allCards.getAllCards().subList(i, i + (numberOfCards / numberOfPlayers)));
