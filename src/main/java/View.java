@@ -74,7 +74,8 @@ public class View {
 
 
 	public void showAddPlayersMenu() {
-	    //todo print short info how input users, first question Ai or user, second name and quit or Q for quit
+	    //todo print short info how input users, fir
+		// st question Ai or user, second name and quit or Q for quit
     }
 
 

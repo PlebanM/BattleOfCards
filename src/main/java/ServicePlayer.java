@@ -1,3 +1,4 @@
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,12 +43,32 @@ public class ServicePlayer {
 
 
 	public boolean isWinner() {
+//		int n = (int) players.stream().map(Player::isActive).count(); // todo zrob to do konca !!!
+
+//		System.out.println(n + " <--- n players.stream().map(e -> e.isActive()).count() ");
 		int numberOfActivePlayers = 0;
 		for (Player player : players) {
 			if(player.isActive()){
 				numberOfActivePlayers++;
 			}
 		}
+//		if (numberOfActivePlayers == 1) {
+//			for (Player player : players) {
+//				if (player.isActive()) {
+//					player.setWinner(true);
+//				}
+//			}
+//		}
 		return numberOfActivePlayers == 1;
+	}
+
+	public boolean isAllPlayersEmpty() {
+		boolean empty = true;
+		for (Player player : players) {
+			if (player.isActive()) {
+				empty = false;
+			}
+		}
+		return empty;
 	}
 }

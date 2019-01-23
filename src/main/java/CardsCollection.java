@@ -6,9 +6,10 @@ public class CardsCollection {
 	private List<Garbage> allCards = new ArrayList<>();
 
 	public void addCardsFromListToDeck(List<Garbage> items) {
-		for (Garbage card : items){
-			this.addCardToBottom(card);
-		}
+		allCards.addAll(items);
+//		for (Garbage card : items){
+//			this.addCardToBottom(card);
+//		}
 	}
 
 
@@ -27,13 +28,8 @@ public class CardsCollection {
 	}
 
 
-	public void removeAllCards() {
-		allCards.clear();
-	}
-
-
 	public void removeTopCard(){
-		allCards.remove(0);
+		allCards.remove(allCards.size() - 1);
 	}
 
 
@@ -49,5 +45,10 @@ public class CardsCollection {
 
 	public Garbage getCartByID(int id) {
 		return allCards.get(id);
+	}
+
+
+	public void removeAllCards() {
+		allCards.clear();
 	}
 }
