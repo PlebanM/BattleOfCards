@@ -3,20 +3,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GarbageDao {
+    private static boolean isCreated = false;
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
 
-    public GarbageDao() {
-//        try {
-//            Class.forName("org.sqlite.JDBC");
-//            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
-//            connection.setAutoCommit(false);
-//            statement = connection.createStatement();
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        createTableIfDataFileIsEmpty();
+    private GarbageDao() {
+        try {
+            Class.forName("org.sqlite.JDBC");
+            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
+            connection.setAutoCommit(false);
+            statement = connection.createStatement();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        createTableIfDataFileIsEmpty();
+    }
+
+    public static GarbageDao getInstance() {
+        if(isCreated) {
+            return null;
+        }
+        isCreated = true;
+        return new GarbageDao();
     }
 
 	public Garbage getByID(int id){
@@ -27,28 +36,28 @@ public class GarbageDao {
 		return garbageByCurrentResultSet();
 	}
 
-	public List<Garbage> getAll(){
-		List<Garbage> devList = new ArrayList<>();
-		devList.add(new Garbage("Fifth", 99, 98, 97, 96));
-		devList.add(new Garbage("Second", 99, 88, 87, 86));
-		devList.add(new Garbage("First", 99, 78, 77, 76));
-		devList.add(new Garbage("Third", 99, 68, 67, 66));
-		devList.add(new Garbage("Fourth", 99, 58, 57, 56));
-		devList.add(new Garbage("Sixth", 99, 48, 47, 46));
-		return devList;
+	public List<Garbage> getAll() {
+//		List<Garbage> devList = new ArrayList<>();
+//		devList.add(new Garbage("Fifth", 99, 98, 97, 96));
+//		devList.add(new Garbage("Second", 99, 88, 87, 86));
+//		devList.add(new Garbage("First", 99, 78, 77, 76));
+//		devList.add(new Garbage("Third", 99, 68, 67, 66));
+//		devList.add(new Garbage("Fourth", 99, 58, 57, 56));
+//		devList.add(new Garbage("Sixth", 99, 48, 47, 46));
+//		return devList;
 
-//        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
-//        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
-//        try {
-//            while(resultSet.next()) {
-//                garbageListFromDataBase.add(
-//                        garbageByCurrentResultSet()
-//                );
-//            }
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        return garbageListFromDataBase;
+        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
+        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
+        try {
+            while(resultSet.next()) {
+                garbageListFromDataBase.add(
+                        garbageByCurrentResultSet()
+                );
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return garbageListFromDataBase;
 
 	}
 
