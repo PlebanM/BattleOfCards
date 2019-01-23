@@ -30,6 +30,20 @@ public class ValidateInputs {
     }
 
 
+    public int chooseNumberGreaterThenZero(String question){
+
+        String str;
+        do {
+            System.out.println(question);
+            str = input.next();
+
+        }while(!(str.matches("\\d+") && Integer.parseInt(str) > 0));
+
+
+        return Integer.parseInt(str);
+    }
+
+
     private boolean checkRange(int firstOption, int lastOption, String input ) {
         int optionInt = Integer.parseInt(input);
         if ((optionInt >= firstOption && optionInt <= lastOption) ) {

@@ -4,10 +4,34 @@ public class View {
 
     Scanner input;
     ValidateInputs validate = new ValidateInputs();
+    List<List<String>> playersList;
 
     public View(){
         this.input = new Scanner(System.in);
     }
+
+
+    public void startGame(){
+		int i = 0;
+		int j = 1;
+		System.out.println("Players names: ");
+		for (List<String> group : playersList) {
+			i++;
+			for (String name: group) {
+
+				if(i==1){
+					System.out.println(j + ". Real player " + name);
+				}else{
+					System.out.println(j + ". AI player " + name);
+				}
+				j++;
+
+			}
+
+		}
+
+	}
+
 
     public void showMainMenu(){
         System.out.println("MAIN MENU: \n" +
@@ -83,7 +107,7 @@ public class View {
 
 	public List<List<String>> getPlayers() {
 
-    	int playersCount = validate.chooseNumber("How many users will be playing?");
+    	int playersCount = validate.chooseNumberGreaterThenZero("How many users will be playing?");
 
 		int userCount;
     	do{
@@ -99,17 +123,14 @@ public class View {
 		List<List<String>> allUsersNames = new ArrayList<>();
 		allUsersNames.add(usersList);
 		allUsersNames.add(AIList);
-		//TODO: dorobic wyswietlanie imion graczy
-		for (List<String> dupa : allUsersNames) {
-			System.out.println(Arrays.toString(dupa.toArray()));
+		this.playersList = allUsersNames;
 
-		}
-		System.out.println("UDALO SIE");
-		return allUsersNames;
+		return playersList;
 	}
 
 
-	public List<String> createNames(int count, String userType){
+
+	private List<String> createNames(int count, String userType){
 		List<String> usersList = new ArrayList<>();
     	for (int i = 0; i < count; i++){
 			System.out.println("Write name of " + userType + " number " + (i+1) +": ");
@@ -122,46 +143,10 @@ public class View {
 
 	}
 
-	public void createAINames(){
-
-	}
-
-
-	private void  validateAddUsersNames(){
-//		String usersNumbers = input.next();
-//
-//		if(!validate.isNumeric(usersNumbers)){
-//			addUsersName();
-//		}
-//
-//		int usersNumbersInt = Integer.parseInt(usersNumbers);
-//		System.out.println(usersNumbersInt);
-//
-//		String[] usersNames = new String[usersNumbersInt];
-//		String[] AINames = new String[usersNumbersInt];
-//		for(int i = 0; i < usersNumbersInt; i++ ){
-//			System.out.println("Write name of Player number " + (i+1) +": ");
-//			usersNames[i]=input.next();
-//		}
-//		System.out.println(Arrays.toString(usersNames));
-//		return  usersNames;
-
-
-	}
-
-
-
-
-
-//	    //todo print and input names and set two list of Players and Ai players
-//        return out;
-
-
-    //todo: metoda start game -> lista imion(lista<string>)
-
 
 	public void showLooseMessage(String name) {
-		//todo print loose message, name is looser name
+		System.out.println("Player " + name + " loose the game!:-(");
+
 	}
 	//todo: edycja, kasowanie i dodanie nowej karty;wybierz nazwe, wybiez statystyke
 }
