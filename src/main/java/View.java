@@ -107,7 +107,7 @@ public class View {
 
 	public List<List<String>> getPlayers() {
 
-    	int playersCount = validate.chooseNumberGreaterThenZero("How many users will be playing?");
+    	int playersCount = validate.chooseNumberGreaterThen("How many users will be playing?", 0);
 
 		int userCount;
     	do{
@@ -147,7 +147,73 @@ public class View {
 		System.out.println("Player " + name + " loose the game!:-(");
 
 	}
-	//todo: edycja, kasowanie i dodanie nowej karty;wybierz nazwe, wybiez statystyke
+
+
+	public void showGameView(ServicePlayer servicePlayer){
+		System.out.println("----------------------");
+		for (Player player : servicePlayer.getPlayers()) {
+			if(player.isPlayerTurn()){
+				System.out.println(player.getPlayerName() + " choose statistic.\n\n " +
+						player.getPlayerDeck().getTopCard().getName());
+
+			}
+//
+//			System.out.println(player.isPlayerTurn() +
+//					" : " + player.isActive() +
+//					" : " + player.getPlayerName() +
+//					" : " + player.getPlayerDeck().getAllCards());
+//		}
+
+	}}
+
+	public String createCardName(){
+		System.out.println("What name you choose for the card? ");
+		String cardName = input.next();
+		return cardName;
+	}
+
+	public int createStatistic(String statisticName){
+
+		return validate.chooseNumberGreaterThen("Enter value of the " +
+				statisticName + ": ", -1);
+
+    }
+
+    public int chooseCardByName(List<String> cards){
+		int i = 0;
+    	for (String name : cards) {
+			i++;
+    		System.out.println(i + "." + name);
+		}
+		System.out.println("What number of card do you choose? ");
+
+		String option;
+		do {
+
+			option = input.next();
+
+		}while((!validate.validationInputInteger(1, i, option)));
+
+
+		return Integer.parseInt(option)-1;
+	}
+
+	public int editCardParams(int statValue, String optionName){
+		System.out.println("Actual value of " + optionName + " is: " + statValue );
+
+		int answer = validate.chooseNumberGreaterThen("Enter new value of the " +
+				optionName + ": [enter = no change]", -1, statValue);
+
+		return answer;
+
+	}
+
+
+
+
+
+
+	//todo: edycja, kasowanie i dodanie nowej karty;wybierz nazwe, wybierz statystyke
 }
 //todo: dostaje liste stringow->wyswietlam sytringi i zwracam index(int);
 //todo: dostaje w parametrze string i int(lub nie) i robie przeciazoną metode ->zwracam int - edycja karty
