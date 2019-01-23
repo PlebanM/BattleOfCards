@@ -3,11 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GarbageDao {
+    private static boolean isCreated = false;
     private Connection connection;
     private Statement statement;
     private ResultSet resultSet;
 
-    public GarbageDao() {
+    private GarbageDao() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
@@ -17,6 +18,14 @@ public class GarbageDao {
             e.printStackTrace();
         }
         createTableIfDataFileIsEmpty();
+    }
+
+    public static GarbageDao getInstance() {
+        if(isCreated) {
+            return null;
+        }
+        isCreated = true;
+        return new GarbageDao();
     }
 
 	public Garbage getByID(int id){
