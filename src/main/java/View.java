@@ -33,13 +33,13 @@ public class View {
 	}
 
 
-    public void showMainMenu(){
+    public int showMainMenu(){
         System.out.println("MAIN MENU: \n" +
                             "1. Start game\n" +
                             "2. Edit cards\n" +
                             "3. End game\n");
         System.out.println("Choose option: ");
-        validateMainMenu();
+        return validateMainMenu();
     }
 
 	private int validateMainMenu(){
@@ -61,14 +61,14 @@ public class View {
 
     }
 
-    public void showCRUD() {
+    public int showCRUD() {
 		System.out.println("Edit menu. Choose one option: \n" +
 				"1. Create new card\n" +
 				"2. Delete card\n" +
 				"3. Edit card\n" +
 				"0. Back\n");
 		System.out.println("Choose option: ");
-		validateCRUD();
+		return validateCRUD();
 	}
 
 	private int validateCRUD(){

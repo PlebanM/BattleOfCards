@@ -8,27 +8,19 @@ public class GarbageDao {
     private Statement statement;
     private ResultSet resultSet;
 
-    private GarbageDao() {
+    public GarbageDao() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         createTableIfDataFileIsEmpty();
     }
 
-    public static GarbageDao getInstance() {
-        if(isCreated) {
-            return null;
-        }
-        isCreated = true;
-        return new GarbageDao();
-    }
-
-	public Garbage getByID(int id){
+   	public Garbage getByID(int id){
         String getByIdQuery =
                 "SELECT * FROM GARBAGEDATA\n" +
                 "WHERE ID = " + String.valueOf(id) + ";";
@@ -36,7 +28,7 @@ public class GarbageDao {
 		return garbageByCurrentResultSet();
 	}
 
-	public List<Garbage> getAll() {
+	public List<Garbage> getAll(){
 //		List<Garbage> devList = new ArrayList<>();
 //		devList.add(new Garbage("Fifth", 99, 98, 97, 96));
 //		devList.add(new Garbage("Second", 99, 88, 87, 86));
