@@ -36,7 +36,16 @@ public class GarbageDao {
 		return garbageByCurrentResultSet();
 	}
 
-	public List<Garbage> getAll(){
+	public List<Garbage> getAll() {
+//		List<Garbage> devList = new ArrayList<>();
+//		devList.add(new Garbage("Fifth", 99, 98, 97, 96));
+//		devList.add(new Garbage("Second", 99, 88, 87, 86));
+//		devList.add(new Garbage("First", 99, 78, 77, 76));
+//		devList.add(new Garbage("Third", 99, 68, 67, 66));
+//		devList.add(new Garbage("Fourth", 99, 58, 57, 56));
+//		devList.add(new Garbage("Sixth", 99, 48, 47, 46));
+//		return devList;
+
         setResultSetByQuery("SELECT * FROM GARBAGEDATA");
         List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
         try {
@@ -49,6 +58,7 @@ public class GarbageDao {
             e.printStackTrace();
         }
         return garbageListFromDataBase;
+
 	}
 
 	public void removeByID(int id) {
