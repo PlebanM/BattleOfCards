@@ -97,7 +97,6 @@ public class View {
 
      public String[]  validateAddUsersNames(){
         String usersNumbers = input.next();
-        
 
         if(!validate.isNumeric(usersNumbers)){
             addUsersName();
