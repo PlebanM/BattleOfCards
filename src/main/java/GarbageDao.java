@@ -8,15 +8,15 @@ public class GarbageDao {
     private ResultSet resultSet;
 
     public GarbageDao() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
-            connection.setAutoCommit(false);
-            statement = connection.createStatement();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        createTableIfDataFileIsEmpty();
+//        try {
+//            Class.forName("org.sqlite.JDBC");
+//            connection = DriverManager.getConnection("jdbc:sqlite:garbageData.db");
+//            connection.setAutoCommit(false);
+//            statement = connection.createStatement();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        createTableIfDataFileIsEmpty();
     }
 
 	public Garbage getByID(int id){
@@ -29,26 +29,26 @@ public class GarbageDao {
 
 	public List<Garbage> getAll(){
 		List<Garbage> devList = new ArrayList<>();
-		devList.add(new Garbage("Fifth", 44, 44, 44, 44));
-		devList.add(new Garbage("Second", 22, 22, 22, 22));
-		devList.add(new Garbage("First", 99, 99, 99, 99));
-		devList.add(new Garbage("Third", 99, 33, 33, 33));
-		devList.add(new Garbage("Fourth", 44, 44, 44, 44));
-//		devList.add(new Garbage("Sixth", 44, 44, 44, 44));
-//		return devList;
+		devList.add(new Garbage("Fifth", 99, 98, 97, 96));
+		devList.add(new Garbage("Second", 99, 88, 87, 86));
+		devList.add(new Garbage("First", 99, 78, 77, 76));
+		devList.add(new Garbage("Third", 99, 68, 67, 66));
+		devList.add(new Garbage("Fourth", 99, 58, 57, 56));
+		devList.add(new Garbage("Sixth", 99, 48, 47, 46));
+		return devList;
 
-        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
-        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
-        try {
-            while(resultSet.next()) {
-                garbageListFromDataBase.add(
-                        garbageByCurrentResultSet()
-                );
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return garbageListFromDataBase;
+//        setResultSetByQuery("SELECT * FROM GARBAGEDATA");
+//        List<Garbage> garbageListFromDataBase = new ArrayList<Garbage>();
+//        try {
+//            while(resultSet.next()) {
+//                garbageListFromDataBase.add(
+//                        garbageByCurrentResultSet()
+//                );
+//            }
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        return garbageListFromDataBase;
 
 	}
 

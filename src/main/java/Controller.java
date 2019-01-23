@@ -1,31 +1,42 @@
-import java.util.ArrayList;
-
-import java.util.List;
 
 public class Controller {
-
-	private List<Player> players;
-	private View mainView = new View();
-	private Service newGame;
-
-	public void runGame() {
+	private ServiceGame serviceGame;
+	private ServicePlayer servicePlayer;
+	private View view;
 
 
-
-		String[] playerNames = {"Stef", "Mef"};
-		for (String playerName : playerNames){
-			players.add(new UserPlayer(playerName);
-		}
-
-		Service test = new Service();
-		GarbageDao testDAO = new GarbageDao();
-		List<Garbage> garbage = new ArrayList<>(testDAO.getAll());
-		List<Integer> win = test.compareTwoGarbage( Positions.SMELL, garbage);
-		System.out.println(win);
-
+	public Controller() {
+		this.view = new View();
+		this.serviceGame = new ServiceGame(view);
+		this.servicePlayer = new ServicePlayer(view);
 	}
 
-	public void handleCrud() {
 
+	public void runGame() {
+		view.showMainMenu();
+
+		//todo 							"1. Start game\n"
+		boolean isLoadGarbage = serviceGame.loadGarbageFromDB();
+		boolean isSetPlayers = servicePlayer.setPlayers();
+		boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
+
+		//todo this all part is only for tests
+		do {
+
+			testShow();
+
+			serviceGame.nextTour(servicePlayer.getPlayers());
+
+			testShow();
+
+
+		} while (!servicePlayer.isWinner());
+	}
+
+	private void testShow() {
+		System.out.println("----------------------");
+		for (Player player : servicePlayer.getPlayers()) {
+			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
+		}
 	}
 }
