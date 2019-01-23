@@ -130,6 +130,7 @@ public class View {
 
 
 
+
 	private List<String> createNames(int count, String userType){
 		List<String> usersList = new ArrayList<>();
     	for (int i = 0; i < count; i++){
@@ -138,8 +139,6 @@ public class View {
 		}
 
     	return usersList;
-
-
 
 	}
 

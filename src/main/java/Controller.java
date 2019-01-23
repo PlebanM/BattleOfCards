@@ -13,28 +13,31 @@ public class Controller {
 
 
 	public void runGame() {
+
 		view.showMainMenu();
 		view.startGame();
+
 		//todo 							"1. Start game\n"
 		boolean isLoadGarbage = serviceGame.loadGarbageFromDB();
 		boolean isSetPlayers = servicePlayer.setPlayers();
 		boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
 
 		//todo this all part is only for tests
+		testShow();
 		do {
-
-			testShow();
-
 			serviceGame.nextTour(servicePlayer.getPlayers());
-
 			testShow();
-
-
-		} while (!servicePlayer.isWinner());
+			if (servicePlayer.getPlayers().size() == 0) {
+				break;
+			}
+		} while (!servicePlayer.isWinner() || servicePlayer.isAllPlayersEmpty());
 	}
+
+
 
 	private void testShow() {
 		System.out.println("----------------------");
+		System.out.println(servicePlayer.getPlayers().size() + "<--- players size");
 		for (Player player : servicePlayer.getPlayers()) {
 			System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
 		}

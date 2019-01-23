@@ -5,6 +5,8 @@ public abstract class Player {
 	private String playerName;
 	private View view;
 	private boolean playerTurn;
+	private boolean isWinner;
+
 
 
 	public Player(String name, View view){
@@ -41,6 +43,16 @@ public abstract class Player {
 	}
 
 
+//	public boolean isWinner() {
+//		return isWinner;
+//	}
+//
+//
+//	public void setWinner(boolean winner) {
+//		isWinner = winner;
+//	}
+
+
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -59,6 +71,7 @@ public abstract class Player {
 
 
 	public void showLooseMessage() {
+		System.out.println("view.showLooseMessage(this.playerName) < ----------");
 		view.showLooseMessage(this.playerName);
 	}
 
