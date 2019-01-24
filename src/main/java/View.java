@@ -104,7 +104,7 @@ public class View {
 
 
 	public void looserIs(Player player) {
-		System.out.println("Winner is " + player.getPlayerName());
+		System.out.println("Looser is " + player.getPlayerName());
 	}
 
 

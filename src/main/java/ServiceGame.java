@@ -55,49 +55,17 @@ public class ServiceGame {
 
 
 	public void nextTour(List<Player> players) {
-		boolean devTest = false;
 		boolean isDraw = isPlayersDraw(players);
-		if(devTest) testShowPlayersAllCards________________(players);
-//		Positions choice = this.getChoice(players);
+		testShowPlayersAllCards________________(players);
+		Positions choice = this.getChoice(players);
+		moveCardsIntoPlayersTables(players, isDraw);
+		int max = -1;
+		int numberOfWinners = 0;
 
 		if (!isDraw) {
-			Positions choice = this.getChoice(players);
-			moveCardsIntoPlayersTables(players, isDraw);
-			int max = -1;
-			int numberOfWinners = 0;
-			max = setMax(players, choice, max);
-			numberOfWinners = setNumberOfWinners(players, choice, max, numberOfWinners);
-			if (numberOfWinners == 1) {
-				moveCardsIntoWinner(players, choice, max);
-			} else {
-				for (Player player : players) {
-					if (player.getTopCartFromTable().getByChoice(choice) == max) {
-						player.setDraw(true);
-					}
-				}
-			}
+			handleTourIfNoDraw(players, choice, max, numberOfWinners);
 		} else {
-			Positions choice = this.getChoice(players);
-			moveCardsIntoPlayersTables(players, isDraw);
-			testShowPlayersAllCards________________(players);
-			int max = -1;
-			int numberOfWinners = 0;
-			max = setMaxIfDraw(players, choice, max);
-			numberOfWinners = setNumberOfWinnersIfDraw(players, choice, max, numberOfWinners);
-			if (numberOfWinners == 1) {
-				moveCardsIntoWinnerIfDraw(players, choice, max);
-				for (Player player : players) {
-					player.setDraw(false);
-				}
-			} else {
-				for (Player player : players) {
-					if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) == max) {
-						player.setDraw(true);
-					} else {
-						player.setDraw(false);
-					}
-				}
-			}
+			handleTourIfDraw(players, choice, max, numberOfWinners);
 		}
 
 
@@ -117,6 +85,39 @@ public class ServiceGame {
 
 
 
+	}
+
+	private void handleTourIfDraw(List<Player> players, Positions choice, int max, int numberOfWinners) {
+		max = setMaxIfDraw(players, choice, max);
+		numberOfWinners = setNumberOfWinnersIfDraw(players, choice, max, numberOfWinners);
+		if (numberOfWinners == 1) {
+			moveCardsIntoWinnerIfDraw(players, choice, max);
+			for (Player player : players) {
+				player.setDraw(false);
+			}
+		} else {
+			for (Player player : players) {
+				if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) == max) {
+					player.setDraw(true);
+				} else {
+					player.setDraw(false);
+				}
+			}
+		}
+	}
+
+	private void handleTourIfNoDraw(List<Player> players, Positions choice, int max, int numberOfWinners) {
+		max = setMax(players, choice, max);
+		numberOfWinners = setNumberOfWinners(players, choice, max, numberOfWinners);
+		if (numberOfWinners == 1) {
+			moveCardsIntoWinner(players, choice, max);
+		} else {
+			for (Player player : players) {
+				if (player.getTopCartFromTable().getByChoice(choice) == max) {
+					player.setDraw(true);
+				}
+			}
+		}
 	}
 
 	private int setNumberOfWinners(List<Player> players, Positions choice, int max, int numberOfWinners) {
@@ -225,14 +226,15 @@ public class ServiceGame {
 
 
 	public boolean isPlayerLoos(List<Player> players) {
+		boolean test = false;
 		for (Player player : players) {
 			if (!player.isActive()) {
 				view.looserIs(player);
 				sleep(2000);
-				return true;
+				test = true;
 			}
 		}
-		return false;
+		return test;
 	}
 
 
