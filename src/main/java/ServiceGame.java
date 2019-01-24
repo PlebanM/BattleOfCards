@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ServiceGame {
@@ -23,6 +24,13 @@ public class ServiceGame {
 			if (player.isActive()) {
 				table.addCardToBottom(player.getAndRemoveTopCard());
 			}
+		}
+		for(int i = 0; i < players.size(); i++){
+
+			Collections.reverse(players);
+			System.out.println(players.get(i).getPlayerName() + " : " + table.getCartByID(i).getByChoice(choice));
+			Collections.reverse(players);
+
 		}
 		List<Integer> winners = this.compareGarbage(choice, table, players);
 		if (winners.size() == 1) {

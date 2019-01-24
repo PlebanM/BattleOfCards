@@ -2,6 +2,7 @@ import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class ServicePlayer {
 	private List<Player> players = new ArrayList<>();
@@ -16,12 +17,15 @@ public class ServicePlayer {
 		int AiUserPlayersIndex = 1;
 //		view.showAddPlayersMenu();
 		List<List<String>> allPlayers =  view.getPlayers();
-		if (allPlayers.get(userPlayersIndex).size() != 0) {//todo: mozna usunac bo u mnie jest warunek ze musi byc wiecej niz 0 graczy
+		if (allPlayers.get(userPlayersIndex).size() != 0) {
 			for (String name : allPlayers.get(userPlayersIndex)) {
 				players.add(new Player(name, view) {
 					@Override
 					public Positions chooseStatisticToCompare() {
-						return Positions.WEIGHT;
+
+						int userStat = view.chooseStatisticToCompare();
+						System.out.println(Positions.values()[userStat-1]);
+						return Positions.values()[userStat-1];
 					}
 				});
 			}

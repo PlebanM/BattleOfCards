@@ -151,13 +151,24 @@ public class View {
 
 	public void showGameView(ServicePlayer servicePlayer){
 		System.out.println("----------------------");
+
 		for (Player player : servicePlayer.getPlayers()) {
 			if(player.isPlayerTurn()){
-				System.out.println(player.getPlayerName() + " choose statistic.\n\n " +
-						player.getPlayerDeck().getTopCard().getName());
+
+				System.out.println("Player " + player.getPlayerName() +
+						" have "+ player.getPlayerDeck().getSize() + " cards.\n" +
+						"Choose statistic to compare.\n\n " +
+						"Card name is: " + player.getPlayerDeck().getTopCard().getName()+"\n" +
+						"*******Card STATS***********" +"\n" +
+						"1. SMELL: \t\t\t" + player.getPlayerDeck().getTopCard().getSmell()+ "\n" +
+						"2. RECYCLING TIME: \t" + player.getPlayerDeck().getTopCard().getRecyclingTime() +"\n" +
+						"3. JUNK VALUE: \t\t" + player.getPlayerDeck().getTopCard().getJunkValue() +"\n" +
+						"4. WEIGHT: \t\t\t" + player.getPlayerDeck().getTopCard().getWeight() +"\n" +
+						"*****************************");
+
 
 			}
-//
+
 //			System.out.println(player.isPlayerTurn() +
 //					" : " + player.isActive() +
 //					" : " + player.getPlayerName() +
@@ -208,12 +219,27 @@ public class View {
 
 	}
 
+	public int chooseStatisticToCompare(){
+		String option;
+		do {
+			System.out.println("Which stat do you want compare with your opponents?");
+			option = input.next();
+
+		}while((!validate.validationInputInteger(1, 4, option)));
+
+
+		return Integer.parseInt(option);
+
+	}
+
+	public void oponentStat(int userStatNumber){
+//		System.out.println("Another Player stat is: " + player.getPlayerDeck().getTopCard().getByChoice(Positions.values()[]););
+	}
 
 
 
 
 
-	//todo: edycja, kasowanie i dodanie nowej karty;wybierz nazwe, wybierz statystyke
+
+
 }
-//todo: dostaje liste stringow->wyswietlam sytringi i zwracam index(int);
-//todo: dostaje w parametrze string i int(lub nie) i robie przeciazoną metode ->zwracam int - edycja karty

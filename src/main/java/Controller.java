@@ -22,19 +22,20 @@ public class Controller {
 
             switch (mainMenuOption) {
                 case 1:
-                    boolean isLoadGarbage = serviceGame.loadGarbageFromDB();
+                    boolean isLoadGarbage = serviceGame.loadGarbageFromDB();//todo: nie mozna podpiac sie pod baze
                     boolean isSetPlayers = servicePlayer.setPlayers();
-                    boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
+                    boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());//todo: wiecej uzytkowników niz kart
 
                     //todo this all part is only for tests
                     do {
 
-                        testShow();
-//                        view.showGameView(servicePlayer);
+//                        testShow();
+                        view.showGameView(servicePlayer);
                         serviceGame.nextTour(servicePlayer.getPlayers());
-//                        view.showGameView(servicePlayer);
 
-                        testShow();
+                        sleep(1000);
+//                        view.showGameView(servicePlayer);
+//                        testShow();
 
 
                     } while (!servicePlayer.isWinner());
@@ -52,11 +53,23 @@ public class Controller {
         } while (gameIsOn);
 
     }
-
+    private void sleep(int timeMilisecond){
+        try
+        {
+            Thread.sleep(timeMilisecond);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
     private void testShow() {
         System.out.println("----------------------");
         for (Player player : servicePlayer.getPlayers()) {
-            System.out.println(player.isPlayerTurn() + " : " + player.isActive() + " : " + player.getPlayerName() + " : " + player.getPlayerDeck().getAllCards());
+            System.out.println(player.isPlayerTurn() +
+                    " : " + player.isActive() +
+                    " : " + player.getPlayerName() +
+                    " : " + player.getPlayerDeck().getAllCards());
         }
     }
 }
