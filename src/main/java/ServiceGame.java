@@ -1,4 +1,5 @@
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.*;
 
 public class ServiceGame {
@@ -57,11 +58,12 @@ public class ServiceGame {
 		boolean devTest = false;
 		boolean isDraw = isPlayersDraw(players);
 		if(devTest) testShowPlayersAllCards________________(players);
-		Positions choice = this.getChoice(players);
+//		Positions choice = this.getChoice(players);
 
 		if (!isDraw) {
+			Positions choice = this.getChoice(players);
 			moveCardsIntoPlayersTables(players, isDraw);
-			int max = 0;
+			int max = -1;
 			int numberOfWinners = 0;
 			max = setMax(players, choice, max);
 			numberOfWinners = setNumberOfWinners(players, choice, max, numberOfWinners);
@@ -75,8 +77,34 @@ public class ServiceGame {
 				}
 			}
 		} else {
-
+			Positions choice = this.getChoice(players);
+			moveCardsIntoPlayersTables(players, isDraw);
+			testShowPlayersAllCards________________(players);
+			int max = -1;
+			int numberOfWinners = 0;
+			max = setMaxIfDraw(players, choice, max);
+			numberOfWinners = setNumberOfWinnersIfDraw(players, choice, max, numberOfWinners);
+			if (numberOfWinners == 1) {
+				moveCardsIntoWinnerIfDraw(players, choice, max);
+				for (Player player : players) {
+					player.setDraw(false);
+				}
+			} else {
+				for (Player player : players) {
+					if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) == max) {
+						player.setDraw(true);
+					} else {
+						player.setDraw(false);
+					}
+				}
+			}
 		}
+
+
+
+
+
+
 
 
 
@@ -100,9 +128,29 @@ public class ServiceGame {
 		return numberOfWinners;
 	}
 
+
+	private int setNumberOfWinnersIfDraw(List<Player> players, Positions choice, int max, int numberOfWinners) {
+		for (Player player : players) {
+			if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) == max) {
+				numberOfWinners++;
+			}
+		}
+		return numberOfWinners;
+	}
+
 	private int setMax(List<Player> players, Positions choice, int max) {
 		for (Player player : players) {
 			if (player.getTopCartFromTable().getByChoice(choice) > max) {
+				max = player.getTopCartFromTable().getByChoice(choice);
+			}
+		}
+		return max;
+	}
+
+
+	private int setMaxIfDraw(List<Player> players, Positions choice, int max) {
+		for (Player player : players) {
+			if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) > max) {
 				max = player.getTopCartFromTable().getByChoice(choice);
 			}
 		}
@@ -122,7 +170,26 @@ public class ServiceGame {
 			tableBuffer.addCardsFromListToDeck(player.getPlayerTable().getAndRemoveAllCards());
 		}
 		for (Player player : players) {
-			System.out.println(player.isWinner());
+			if (player.isWinner()) {
+				player.addCardsIntoBottomPlayerDec(tableBuffer);
+				player.setWinner(false);
+			}
+		}
+	}
+
+
+	private void moveCardsIntoWinnerIfDraw(List<Player> players, Positions choice, int max) {
+		CardsCollection tableBuffer = new CardsCollection();
+		for (Player player : players) {
+			if (player.isDraw() && player.getTopCartFromTable().getByChoice(choice) == max) {
+				player.setWinner(true);
+				player.setPlayerTurn(true);
+			} else {
+				player.setPlayerTurn(false);
+			}
+			tableBuffer.addCardsFromListToDeck(player.getPlayerTable().getAndRemoveAllCards());
+		}
+		for (Player player : players) {
 			if (player.isWinner()) {
 				player.addCardsIntoBottomPlayerDec(tableBuffer);
 				player.setWinner(false);
