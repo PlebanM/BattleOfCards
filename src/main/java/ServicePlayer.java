@@ -59,7 +59,7 @@ public class ServicePlayer {
 //		if (numberOfActivePlayers == 1) {
 //			for (Player player : players) {
 //				if (player.isActive()) {
-//					player.setWinner(true);
+//					player.setDraw(true);
 //				}
 //			}
 //		}

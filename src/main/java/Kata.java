@@ -4,6 +4,10 @@ import java.util.List;
 
 public class Kata {
 	public static void main(String[] args) {
+//		List<Integer> test new ArrayList<>();
+//		test.
+
+
 //		int n = 26;
 //		int sum = 0;
 ////		int sum2 = 0;
@@ -31,10 +35,10 @@ public class Kata {
 //		}
 //
 //
-		for (long[] item : removNb(26)) {
-			System.out.println(Arrays.toString(item));
-		}
-		System.out.println("---------");
+//		for (long[] item : removNb(26)) {
+//			System.out.println(Arrays.toString(item));
+//		}
+//		System.out.println("---------");
 
 //		for (long[] item : removNb(1000003)) {
 //			System.out.println(Arrays.toString(item));

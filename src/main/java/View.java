@@ -1,40 +1,18 @@
 import java.util.*;
 
 public class View {
+    private Scanner input;
+    private ValidateInputs validate = new ValidateInputs();
 
-    Scanner input;
-    ValidateInputs validate = new ValidateInputs();
-    List<List<String>> playersList;
 
-    public View(){
+	public View(){
         this.input = new Scanner(System.in);
     }
 
 
-    public void startGame(){
-		int i = 0;
-		int j = 1;
-		System.out.println("Players names: ");
-		for (List<String> group : playersList) {
-			i++;
-			for (String name: group) {
-
-				if(i==1){
-					System.out.println(j + ". Real player " + name);
-				}else{
-					System.out.println(j + ". AI player " + name);
-				}
-				j++;
-
-			}
-
-		}
-
-	}
-
-
     public int showMainMenu(){
-        System.out.println("MAIN MENU: \n" +
+	    System.out.print("\033[H\033[2J");
+	    System.out.println("MAIN MENU:\n" +
                             "1. Start game\n" +
                             "2. Edit cards\n" +
                             "3. End game\n");
@@ -42,24 +20,15 @@ public class View {
         return validateMainMenu();
     }
 
+
 	private int validateMainMenu(){
 		String option;
 		do {
-
 			option = input.next();
-
 		}while((!validate.validationInputInteger(1, 3, option)));
-
 		return Integer.parseInt(option);
 	}
 
-
-
-    public void showGameMenu(){
-        Controller controller = new Controller();
-        controller.runGame();
-
-    }
 
     public int showCRUD() {
 		System.out.println("Edit menu. Choose one option: \n" +
@@ -71,64 +40,31 @@ public class View {
 		return validateCRUD();
 	}
 
-	private int validateCRUD(){
 
+	private int validateCRUD(){
 		String option;
 		do {
-
 			option = input.next();
-
 		}while((!validate.validationInputInteger(0, 3, option)));
-
-
         return Integer.parseInt(option);
     }
 
 
-
-
-    public int getPositionOnCard(){
-    	String question = "What kind of statistics you want to use? ";
-    	return validate.chooseNumber(question);
-
-    }
-
-
-
-    public void showAllCards(){
-
-    }
-
-
-    public void showCard() {
-	}
-
-
-
 	public List<List<String>> getPlayers() {
-
     	int playersCount = validate.chooseNumberGreaterThen("How many users will be playing?", 0);
-
 		int userCount;
     	do{
     		userCount = validate.chooseNumber("How many real players? [max: " + playersCount + "]");
-
     	}while(!(userCount<=playersCount && userCount >= 0));
-
     	List<String> usersList = createNames(userCount, "Player");
-
     	int AICount = playersCount-userCount;
 		List<String> AIList = createNames(AICount, "AI");
-
 		List<List<String>> allUsersNames = new ArrayList<>();
 		allUsersNames.add(usersList);
 		allUsersNames.add(AIList);
-		this.playersList = allUsersNames;
-
+		List<List<String>> playersList = allUsersNames;
 		return playersList;
 	}
-
-
 
 
 	private List<String> createNames(int count, String userType){
@@ -137,45 +73,39 @@ public class View {
 			System.out.println("Write name of " + userType + " number " + (i+1) +": ");
     		usersList.add(input.next());
 		}
-
     	return usersList;
-
 	}
 
 
 	public void showLooseMessage(String name) {
 		System.out.println("Player " + name + " loose the game!:-(");
-
 	}
 
 
 	public void showGameView(ServicePlayer servicePlayer){
-		System.out.println("----------------------");
-
+		System.out.print("\033[H\033[2J");
+//		System.out.println(servicePlayer.getPlayers() + " <--------------------------- getPlayers");
 		for (Player player : servicePlayer.getPlayers()) {
 			if(player.isPlayerTurn()){
-
 				System.out.println("Player " + player.getPlayerName() +
 						" have "+ player.getPlayerDeck().getSize() + " cards.\n" +
 						"Choose statistic to compare.\n\n " +
 						"Card name is: " + player.getPlayerDeck().getTopCard().getName()+"\n" +
 						"*******Card STATS***********" +"\n" +
-						"1. SMELL: \t\t\t" + player.getPlayerDeck().getTopCard().getSmell()+ "\n" +
+						"1. SMELL: \t\t" + player.getPlayerDeck().getTopCard().getSmell()+ "\n" +
 						"2. RECYCLING TIME: \t" + player.getPlayerDeck().getTopCard().getRecyclingTime() +"\n" +
 						"3. JUNK VALUE: \t\t" + player.getPlayerDeck().getTopCard().getJunkValue() +"\n" +
-						"4. WEIGHT: \t\t\t" + player.getPlayerDeck().getTopCard().getWeight() +"\n" +
+						"4. WEIGHT: \t\t" + player.getPlayerDeck().getTopCard().getWeight() +"\n" +
 						"*****************************");
-
-
 			}
+		}
+	}
 
-//			System.out.println(player.isPlayerTurn() +
-//					" : " + player.isActive() +
-//					" : " + player.getPlayerName() +
-//					" : " + player.getPlayerDeck().getAllCards());
-//		}
 
-	}}
+	public void looserIs(Player player) {
+		System.out.println("Winner is " + player.getPlayerName());
+	}
+
 
 	public String createCardName(){
 		System.out.println("What name you choose for the card? ");
@@ -184,11 +114,10 @@ public class View {
 	}
 
 	public int createStatistic(String statisticName){
-
 		return validate.chooseNumberGreaterThen("Enter value of the " +
 				statisticName + ": ", -1);
-
     }
+
 
     public int chooseCardByName(List<String> cards){
 		int i = 0;
@@ -197,24 +126,16 @@ public class View {
     		System.out.println(i + "." + name);
 		}
 		System.out.println("What number of card do you choose? ");
-
 		String option;
 		do {
-
 			option = input.next();
-
 		}while((!validate.validationInputInteger(1, i, option)));
-
-
 		return Integer.parseInt(option)-1;
 	}
-
 	public int editCardParams(int statValue, String optionName){
 		System.out.println("Actual value of " + optionName + " is: " + statValue );
-
 		int answer = validate.chooseNumberGreaterThen("Enter new value of the " +
 				optionName + ": [enter = no change]", -1, statValue);
-
 		return answer;
 
 	}
@@ -224,22 +145,21 @@ public class View {
 		do {
 			System.out.println("Which stat do you want compare with your opponents?");
 			option = input.next();
-
 		}while((!validate.validationInputInteger(1, 4, option)));
-
-
 		return Integer.parseInt(option);
+	}
 
+
+	public void addMorePlayersThanCardsFailed(){
+		System.out.println("To many players. Add new cards or less players.");
+	}
+
+
+	public void loadDBFailed(){
+		System.out.println("No connection with DB!");
 	}
 
 	public void oponentStat(int userStatNumber){
 //		System.out.println("Another Player stat is: " + player.getPlayerDeck().getTopCard().getByChoice(Positions.values()[]););
 	}
-
-
-
-
-
-
-
 }
