@@ -13,10 +13,10 @@ public class Controller {
 	public void runGame() {
 		boolean gameIsOn = true;
 		do {
+			ServiceGame serviceGame = new ServiceGame(view);
 			switch (view.showMainMenu()) {
 				case 1:
 					this.servicePlayer = new ServicePlayer(view);
-					ServiceGame serviceGame = new ServiceGame(view);
 					this.serviceCrud = new ServiceCrud(view, serviceGame.getGarbageDao());
 					if (!serviceGame.initPlayers(serviceGame, servicePlayer)) break;
 					do {
@@ -26,6 +26,7 @@ public class Controller {
 					break;
 				case 2:
 					int crudMenuOption = view.showCRUD();
+					this.serviceCrud = new ServiceCrud(view, serviceGame.getGarbageDao());
 					serviceCrud.handleGeneralCrud(crudMenuOption);
 					break;
 				case 3:

@@ -42,9 +42,10 @@ public class View {
 
 
 	private int validateCRUD(){
-		String option;
+		String option = "";
 		do {
 			option = input.next();
+
 		}while((!validate.validationInputInteger(0, 3, option)));
         return Integer.parseInt(option);
     }
