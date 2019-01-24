@@ -23,18 +23,18 @@ public class ServiceCrud {
                 editChosenCard(chooseCardFromEntireDeck());
                 break;
             case 0:
-                System.out.println(" ");;
+                System.out.println(" ");
                 break;
         }
     }
 
     public void createNewCard() {
-        // wysylac pojedynczo stringi do view, wracaja inty
-        String newName = "Junk!"; //to bedzie z View po przekazaniu Stringa name
-        int smell = 0; //to bedzie z View po przekazaniu Stringa smell
-        int recyclingTime = 1; //to bedzie z View po przekazaniu Stringa recycling
-        int junkValue = 2; //to bedzie z View po przekazaniu Stringa junkvalue
-        int weight = 3; //to bedzie z View po przekazaniu Stringa weight
+
+        String newName = view.createCardName();
+        int smell = view.createStatistic("smell");
+        int recyclingTime = view.createStatistic("recycling time");
+        int junkValue = view.createStatistic("junk value");
+        int weight = view.createStatistic("weight");
         Garbage newCard = new Garbage(newName, smell, recyclingTime, junkValue, weight);
         garbageDao.add(newCard);
     }
@@ -45,19 +45,20 @@ public class ServiceCrud {
         for (Garbage card : allCards){
             allNames.add(card.getName());
         }
-        int chosenIndex = 2; // to bedzie z view po przekazaniu allNames
+        int chosenIndex = view.chooseCardByName(allNames);
         return allCards.get(chosenIndex);
     }
 
     public void deleteChosenCard(Garbage garbageToDelete){
-        garbageDao.removeByID(2);
+
+        garbageDao.removeByID(garbageToDelete.getId());
     }
 
     public void editChosenCard(Garbage garbageToEdit){
-        int smell = 4; //to bedzie z View po przekazaniu Stringa smell
-        int recyclingTime = 5; //to bedzie z View po przekazaniu Stringa recycling
-        int junkValue = 6; //to bedzie z View po przekazaniu Stringa junkvalue
-        int weight = 7; //to bedzie z View po przekazaniu Stringa weight
+        int smell = view.editCardParams(garbageToEdit.getSmell(), "smell");
+        int recyclingTime = view.editCardParams(garbageToEdit.getRecyclingTime(), "recycling time");
+        int junkValue = view.editCardParams(garbageToEdit.getJunkValue(), "junk value");
+        int weight = view.editCardParams(garbageToEdit.getWeight(), "weight");
         Garbage newCard = new Garbage(garbageToEdit.getName(), smell, recyclingTime, junkValue, weight);
         garbageDao.updateByID(garbageToEdit.getId(), newCard);
     }

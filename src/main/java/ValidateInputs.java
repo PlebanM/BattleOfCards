@@ -25,23 +25,48 @@ public class ValidateInputs {
 
         }while(!str.matches("\\d+"));
 
-        System.out.println(str);
+
         return Integer.parseInt(str);
     }
 
 
-    public int chooseNumberGreaterThenZero(String question){
+    public int chooseNumberGreaterThen(String question, int value){
 
         String str;
+
+
         do {
             System.out.println(question);
             str = input.next();
 
-        }while(!(str.matches("\\d+") && Integer.parseInt(str) > 0));
+        }while(!(str.matches("\\d+") && Integer.parseInt(str) > value));
 
 
         return Integer.parseInt(str);
     }
+
+
+    public int chooseNumberGreaterThen(String question, int value, int oldValue){
+        String str;
+        System.out.println(question);
+        str = input.nextLine();
+
+        if(str.isEmpty()){
+            System.out.println("No changes!\n");
+            return oldValue;
+
+        }
+
+        while(!(str.matches("\\d+") && Integer.parseInt(str) > value)) {
+            System.out.println(question);
+            str = input.next();
+        }
+
+        System.out.println("New value is " + str + "\n");
+        return Integer.parseInt(str);
+    }
+
+
 
 
     private boolean checkRange(int firstOption, int lastOption, String input ) {
@@ -69,6 +94,7 @@ public class ValidateInputs {
             System.out.println("It's not a number");
             return false;
         }
+
 
 
     }

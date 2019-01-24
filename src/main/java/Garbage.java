@@ -88,4 +88,6 @@ public class Garbage {
 				", weight=" + weight +
 				'}';
 	}
+
+
 }

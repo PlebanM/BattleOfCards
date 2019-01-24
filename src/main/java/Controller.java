@@ -22,7 +22,6 @@ public class Controller {
 
             switch (mainMenuOption) {
                 case 1:
-                    //todo 							"1. Start game\n"
                     boolean isLoadGarbage = serviceGame.loadGarbageFromDB();
                     boolean isSetPlayers = servicePlayer.setPlayers();
                     boolean isCardsHandleToPlayers = serviceGame.dealCardsToPlayers(servicePlayer.getPlayers());
@@ -31,8 +30,9 @@ public class Controller {
                     do {
 
                         testShow();
-
+//                        view.showGameView(servicePlayer);
                         serviceGame.nextTour(servicePlayer.getPlayers());
+//                        view.showGameView(servicePlayer);
 
                         testShow();
 

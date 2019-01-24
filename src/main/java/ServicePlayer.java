@@ -16,7 +16,7 @@ public class ServicePlayer {
 		int AiUserPlayersIndex = 1;
 //		view.showAddPlayersMenu();
 		List<List<String>> allPlayers =  view.getPlayers();
-		if (allPlayers.get(userPlayersIndex).size() != 0) {
+		if (allPlayers.get(userPlayersIndex).size() != 0) {//todo: mozna usunac bo u mnie jest warunek ze musi byc wiecej niz 0 graczy
 			for (String name : allPlayers.get(userPlayersIndex)) {
 				players.add(new Player(name, view) {
 					@Override
