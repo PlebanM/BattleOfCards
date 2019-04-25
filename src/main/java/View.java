@@ -2,14 +2,14 @@ import java.util.*;
 
 public class View {
 
+
     Scanner input;
     ValidateInputs validate = new ValidateInputs();
-    List<List<String>> playersList;
+
 
     public View(){
         this.input = new Scanner(System.in);
     }
-
 
     public void startGame(){
 		int i = 0;
@@ -37,6 +37,7 @@ public class View {
                             "3. End game\n");
         System.out.println("Choose option: ");
         return validateMainMenu();
+
     }
 
 	private int validateMainMenu(){
