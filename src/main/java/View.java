@@ -4,10 +4,34 @@ public class View {
     private Scanner input;
     private ValidateInputs validate = new ValidateInputs();
 
+    Scanner input;
+    ValidateInputs validate = new ValidateInputs();
+
+
 
 	public View(){
         this.input = new Scanner(System.in);
     }
+
+
+    public void startGame(){
+		int i = 0;
+		int j = 1;
+		System.out.println("Players names: ");
+		for (List<String> group : playersList) {
+			i++;
+			for (String name: group) {
+
+				if(i==1){
+					System.out.println(j + ". Real player " + name);
+				}else{
+					System.out.println(j + ". AI player " + name);
+				}
+				j++;
+			}
+		}
+	}
+
 
 
     public int showMainMenu(){
@@ -18,6 +42,7 @@ public class View {
                             "3. End game\n");
         System.out.println("Choose option: ");
         return validateMainMenu();
+
     }
 
 
@@ -51,8 +76,31 @@ public class View {
     }
 
 
+
+
+
+    public int getPositionOnCard(){
+    	String question = "What kind of statistics you want to use? ";
+    	return validate.chooseNumber(question);
+
+    }
+
+
+
+    public void showAllCards(){
+    }
+
+
+    public void showCard() {
+	}
+
+
+
 	public List<List<String>> getPlayers() {
-    	int playersCount = validate.chooseNumberGreaterThen("How many users will be playing?", 0);
+
+    	int playersCount = validate.chooseNumberGreaterThen("How many total players?", 0);
+
+
 		int userCount;
     	do{
     		userCount = validate.chooseNumber("How many real players? [max: " + playersCount + "]");
@@ -71,7 +119,7 @@ public class View {
 	private List<String> createNames(int count, String userType){
 		List<String> usersList = new ArrayList<>();
     	for (int i = 0; i < count; i++){
-			System.out.println("Write name of " + userType + " number " + (i+1) +": ");
+			System.out.println("Provide a name of " + userType + " number " + (i+1) +": ");
     		usersList.add(input.next());
 		}
     	return usersList;
@@ -79,7 +127,9 @@ public class View {
 
 
 	public void showLooseMessage(String name) {
-		System.out.println("Player " + name + " loose the game!:-(");
+
+		System.out.println("Player " + name + " lost the game!:-(");
+
 	}
 
 
@@ -89,7 +139,7 @@ public class View {
 		for (Player player : servicePlayer.getPlayers()) {
 			if(player.isPlayerTurn()){
 				System.out.println("Player " + player.getPlayerName() +
-						" have "+ player.getPlayerDeck().getSize() + " cards.\n" +
+						" has "+ player.getPlayerDeck().getSize() + " cards.\n" +
 						"Choose statistic to compare.\n\n " +
 						"Card name is: " + player.getPlayerDeck().getTopCard().getName()+"\n" +
 						"*******Card STATS***********" +"\n" +
@@ -109,7 +159,7 @@ public class View {
 
 
 	public String createCardName(){
-		System.out.println("What name you choose for the card? ");
+		System.out.println("Choose a name for the card? ");
 		String cardName = input.next();
 		return cardName;
 	}
@@ -126,7 +176,10 @@ public class View {
 			i++;
     		System.out.println(i + "." + name);
 		}
-		System.out.println("What number of card do you choose? ");
+
+		System.out.println("Which number of card do you choose? ");
+
+
 		String option;
 		do {
 			option = input.next();
