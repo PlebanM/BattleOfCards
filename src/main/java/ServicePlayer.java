@@ -15,7 +15,6 @@ public class ServicePlayer {
 	public boolean setPlayers() {
 		int userPlayersIndex = 0;
 		int AiUserPlayersIndex = 1;
-//		view.showAddPlayersMenu();
 		List<List<String>> allPlayers =  view.getPlayers();
 		if (allPlayers.get(userPlayersIndex).size() != 0) {
 			for (String name : allPlayers.get(userPlayersIndex)) {
@@ -59,7 +58,7 @@ public class ServicePlayer {
 //		if (numberOfActivePlayers == 1) {
 //			for (Player player : players) {
 //				if (player.isActive()) {
-//					player.setWinner(true);
+//					player.setDraw(true);
 //				}
 //			}
 //		}
